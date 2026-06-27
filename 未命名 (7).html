@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索结果 - 宁洲市东湖区公安局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", SimHei, sans-serif;
+        }
+        body {
+            background: #fff;
+            font-size: 14px;
+        }
+        /* 头部顶部logo区 */
+        .header-top {
+            width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            gap: 12px;
+        }
+        .logo-img {
+            width: 80px;
+            height: 80px;
+        }
+        .logo-text h1 {
+            color: #0044aa;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .logo-text p {
+            color: #0044aa;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .search-box {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+        .search-input {
+            height: 36px;
+            width: 220px;
+            border: 1px solid #ccc;
+            border-right: none;
+            padding: 0 10px;
+            border-radius: 4px 0 0 4px;
+        }
+        .search-btn {
+            height: 36px;
+            width: 40px;
+            background: #dd2222;
+            border: none;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        /* 导航栏 */
+        .nav-wrap {
+            background: #0055bb;
+        }
+        .nav {
+            width: 960px;
+            margin: 0 auto;
+            display: flex;
+        }
+        .nav a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 26px;
+            font-size: 16px;
+        }
+        .nav a.active {
+            background: #ffaa00;
+            color: #000;
+        }
+        /* 主容器 960px居中 */
+        .container {
+            width: 960px;
+            margin: 20px auto;
+            min-height: 400px;
+        }
+        .search-result-box {
+            background: #f0f7ff;
+            border: 1px solid #b8d8f8;
+        }
+        .block-title {
+            background: #0066cc;
+            color: #fff;
+            padding: 6px 12px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .result-tip {
+            padding: 10px 15px;
+            color: #333;
+            border-bottom: 1px dotted #cce0f5;
+        }
+        .result-tip span {
+            color: #dd2222;
+            font-weight: bold;
+        }
+        .result-list {
+            padding: 10px 15px;
+        }
+        .result-list ul {
+            list-style: none;
+        }
+        .result-list li {
+            line-height: 30px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dotted #cce0f5;
+        }
+        .result-list a {
+            color: #003377;
+            text-decoration: none;
+        }
+        .result-list a:hover {
+            text-decoration: underline;
+        }
+        .news-date {
+            color: #666;
+            font-size: 12px;
+        }
+        .no-result {
+            padding: 60px 0;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+        /* 页脚版权 */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #555;
+            line-height: 22px;
+            padding: 10px 0;
+            border-top: 1px solid #cce0f5;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部Logo+搜索 -->
+<div class="header-top">
+    <div class="logo-img">
+        <img src="/game/pic/01logo.png" alt="公安国徽" width="80" height="80">
+    </div>
+    <div class="logo-text">
+        <h1>宁洲市东湖区公安局</h1>
+        <p>NINGZHOU MUNICIPAL PUBLIC SECURITY BUREAU</p>
+    </div>
+    <div class="search-box">
+        <input class="search-input" id="searchInput" placeholder="请输入关键字">
+        <button class="search-btn" id="searchBtn">搜索</button>
+    </div>
+</div>
+
+<!-- 导航栏 -->
+<div class="nav-wrap">
+    <div class="nav">
+        <a href="/game/index.html">首页</a>
+        <a href="/game/01shishi.html">实时新闻</a>
+        <a href="#">网上办事</a>
+        <a href="/game/01gongshi.html">公示公告</a>
+        <a href="#">局长信箱</a>
+        <a href="/game/01zhuanwang.html">专网登录</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="search-result-box">
+        <div class="block-title">搜索结果</div>
+        <div class="result-tip">
+            您搜索的关键词：<span id="keywordText"></span>
+        </div>
+        <div class="result-list">
+            <ul id="resultList"></ul>
+            <div class="no-result" id="noResult" style="display:none;">未找到相关内容，请更换关键词重试</div>
+        </div>
+    </div>
+
+    <!-- 页脚版权信息 -->
+    <div class="footer">
+        本网站为解密游戏 本页面为虚构内容，所有名称、事件、文件均为架空设定，与现实无关<br>
+        01
+    </div>
+</div>
+
+<!-- 引入根目录下的关键词表 -->
+<script src="/keywords.js"></script>
+<script>
+// 获取URL中的关键词参数
+function getQueryParam(name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return decodeURIComponent(r[2]);
+    return '';
+}
+
+var keyword = getQueryParam('keyword');
+var keywordText = document.getElementById('keywordText');
+var resultList = document.getElementById('resultList');
+var noResult = document.getElementById('noResult');
+var searchInput = document.getElementById('searchInput');
+var searchBtn = document.getElementById('searchBtn');
+
+// 回显搜索词
+keywordText.innerText = keyword;
+searchInput.value = keyword;
+
+// 执行搜索匹配（模糊匹配：关键词包含搜索内容即命中）
+function doSearch() {
+    if (!keyword) {
+        noResult.style.display = 'block';
+        return;
+    }
+    
+    var matchList = [];
+    for (var i = 0; i < keywordList.length; i++) {
+        // 模糊匹配，不区分大小写
+        if (keywordList[i].keyword.indexOf(keyword) > -1 || keyword.indexOf(keywordList[i].keyword) > -1) {
+            matchList.push(keywordList[i]);
+        }
+    }
+
+    // 渲染结果
+    if (matchList.length === 0) {
+        noResult.style.display = 'block';
+        return;
+    }
+
+    var html = '';
+    for (var j = 0; j < matchList.length; j++) {
+        html += '<li><a href="' + matchList[j].url + '">' + matchList[j].title + '</a><span class="news-date">' + matchList[j].date + '</span></li>';
+    }
+    resultList.innerHTML = html;
+}
+
+// 页面加载执行搜索
+doSearch();
+
+// 结果页再次搜索功能
+function goSearch() {
+    var newKeyword = searchInput.value.trim();
+    if (!newKeyword) {
+        alert('请输入搜索关键字');
+        return;
+    }
+    window.location.href = '/game/search.html?keyword=' + encodeURIComponent(newKeyword);
+}
+searchBtn.addEventListener('click', goSearch);
+searchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        goSearch();
+    }
+});
+</script>
+</body>
+</html>
