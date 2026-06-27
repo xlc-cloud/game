@@ -250,7 +250,7 @@ function doSearch() {
 
     var html = '';
     for (var j = 0; j < matchList.length; j++) {
-        html += '<li><a href="' + matchList[j].url + '">' + matchList[j].title  + '</span></li>';
+        html += '<li><a href="' + matchList[j].url + '" target="_blank">' + matchList[j].title  + '</a></li>';
     }
     resultList.innerHTML = html;
 }
