@@ -289,8 +289,8 @@
         <p>NINGZHOU MUNICIPAL PUBLIC SECURITY BUREAU</p>
     </div>
     <div class="search-box">
-        <input class="search-input" placeholder="请输入关键字">
-        <button class="search-btn"><a href="#">搜索</a></button>
+        <input class="search-input" id="searchInput" placeholder="请输入关键字">
+        <button class="search-btn" id="searchBtn">搜索</button>
     </div>
 </div>
 
@@ -406,5 +406,30 @@
         01
     </div>
 </div>
+
+<script>
+// 搜索跳转功能
+var searchInput = document.getElementById('searchInput');
+var searchBtn = document.getElementById('searchBtn');
+
+function goSearch() {
+    var keyword = searchInput.value.trim();
+    if (!keyword) {
+        alert('请输入搜索关键字');
+        return;
+    }
+    // 携带关键词跳转到搜索结果页
+    window.location.href = '/game/search.html?keyword=' + encodeURIComponent(keyword);
+}
+
+// 点击按钮搜索
+searchBtn.addEventListener('click', goSearch);
+// 回车键搜索
+searchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        goSearch();
+    }
+});
+</script>
 </body>
 </html>
