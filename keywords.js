@@ -7,7 +7,7 @@ var keywordList = [
 
     },
     {
-        keyword: "顾振义",
+        keyword: "刘长宏",
         title: "全市中小学生防溺水工作部署会召开",
         url: "#",
         date: "05-19"
