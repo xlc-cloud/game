@@ -37,6 +37,7 @@
             text-align: center;
             letter-spacing: 1px;
         }
+        /* 搜索框相关样式全部保留但页面删除对应DOM */
         .search-box {
             margin-left: auto;
             display: flex;
@@ -79,12 +80,9 @@
             background: #ffaa00;
             color: #000;
         }
-        /* 头条滚动栏（移除公安要闻） */
+        /* 头条滚动栏 */
         .top-news-bar {
-            width: 960px;
-            margin: 8px auto;
-            background: #e8f2ff;
-            padding: 6px 10px;
+            display: none;
         }
         .top-news-bar a {
             color: #0044aa;
@@ -155,6 +153,7 @@
             margin: 0 2px;
             color: #0044aa;
         }
+        /* 当前页改为1 */
         .page-num a.current {
             background: #0055bb;
             color: #fff;
@@ -198,48 +197,47 @@
     </style>
 </head>
 <body>
-<!-- 头部Logo+搜索 -->
+<!-- 头部Logo区域，已删除搜索框 -->
 <div class="header-top">
     <div class="logo-img">
-        <img src="/pic/01logo.png" alt="公安国徽" width="80" height="80">
+        <!-- 国徽路径修改为 game/pic/01logo.png -->
+        <img src="game/pic/01logo.png" alt="公安国徽" width="80" height="80">
     </div>
     <div class="logo-text">
         <h1>宁洲市东湖区公安局</h1>
         <p>NINGZHOU MUNICIPAL PUBLIC SECURITY BUREAU</p>
     </div>
-    <div class="search-box">
-        <input class="search-input" placeholder="请输入关键字">
-        <button class="search-btn">搜索</button>
-    </div>
+    <!-- 搜索框整块删除 -->
 </div>
 
-<!-- 导航栏 -->
+<!-- 导航栏（全部链接修改完成） -->
 <div class="nav-wrap">
     <div class="nav">
-        <a href="#">首页</a>
+        <!-- 首页跳转 /game/01gonganju.html -->
+        <a href="/game/01gonganju.html">首页</a>
         <a href="#" class="active">实时新闻</a>
         <a href="#">网上办事</a>
-        <a href="#">政务公开</a>
+        <!-- 文字改为公示公告，跳转 game/01gongshi.html -->
+        <a href="/game/01gongshi.html">公示公告</a>
         <a href="#">局长信箱</a>
-        <a href="#">专网登录</a>
+        <!-- 专网登录跳转 game/01zhuanwang.html -->
+        <a href="/game/01zhuanwang.html">专网登录</a>
     </div>
 </div>
 
-<!-- 顶部滚动新闻栏（已删除公安要闻） -->
+<!-- 顶部横幅已隐藏清空 -->
 <div class="top-news-bar">
-    <a href="#">全市烟花爆竹全链条安全集中整治工作部署会召开</a>
-    <a href="#">全市中小学生防溺水工作部署会召开</a>
-    <a href="#">叶建春出席全省烟花爆竹全链条集中整治...</a>
 </div>
 
 <div class="container">
-    <!-- 实时新闻主列表 无左侧政务栏 -->
+    <!-- 实时新闻主列表 -->
     <div class="news-wrap">
         <div class="block-title">实时新闻</div>
         <div class="news-list">
             <ul>
                 <li><a href="#">公安部召开新闻发布会通报当前电信网络诈骗犯罪形势及打击治理成效</a><span class="news-date">06-22</span></li>
-                <li><a href="#">杜绝虚假警情 守护公共警务资源</a><span class="news-date">06-19</span></li>
+                <!-- 本条跳转 game/02shishi.html -->
+                <li><a href="/game/02shishi.html">杜绝虚假警情 守护公共警务资源</a><span class="news-date">06-19</span></li>
                 <li><a href="#">中央宣传部、公安部联合部署在全国开展2026年“最美基层民警”学习宣传活动</a><span class="news-date">06-11</span></li>
                 <li><a href="#">全市烟花爆竹全链条安全集中整治工作部署会召开 筑牢安全生产防线</a><span class="news-date">05-19</span></li>
                 <li><a href="#">全市中小学生防溺水工作部署会召开</a><span class="news-date">05-19</span></li>
@@ -249,12 +247,12 @@
                 <li><a href="#">宁州市公安局发布清明节安全出行提示</a><span class="news-date">04-01</span></li>
                 <li><a href="#">东湖区开展春季消防安全大检查</a><span class="news-date">03-25</span></li>
             </ul>
-            <!-- 分页区域 -->
+            <!-- 分页：1为蓝色选中，4恢复普通样式 -->
             <div class="page-num">
-                <a href="#">1</a>
+                <a href="#" class="current">1</a>
                 <a href="#">2</a>
                 <a href="#">3</a>
-                <a href="#" class="current">4</a>
+                <a href="#">4</a>
                 <a href="#">5</a>
             </div>
         </div>
