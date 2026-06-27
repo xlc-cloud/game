@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>空白报案记录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #0f1115;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            color: #c8ccd4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* 屏幕噪点质感，增强写实氛围 */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 3px 3px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 85%;
+            z-index: 2;
+        }
+
+        .game-title {
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            color: #e6e8ec;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeIn 1.2s ease forwards;
+        }
+
+        .story p {
+            font-size: 16px;
+            line-height: 2;
+            margin-bottom: 14px;
+            opacity: 0;
+            animation: fadeIn 1.2s ease forwards;
+        }
+
+        /* 逐行淡入动画延迟 */
+        .story p:nth-child(1) { animation-delay: 1.5s; }
+        .story p:nth-child(2) { animation-delay: 3s; }
+        .story p:nth-child(3) { animation-delay: 4.5s; }
+        .story p:nth-child(4) { animation-delay: 6s; }
+        .story p:nth-child(5) { animation-delay: 7.5s; }
+        .story p:nth-child(6) { animation-delay: 9s; }
+        .story p:nth-child(7) { animation-delay: 10.5s; }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: #2a2d33;
+            margin: 40px 0 30px 0;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 11.5s;
+        }
+
+        .tip {
+            font-size: 14px;
+            color: #8a8f99;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 12s;
+        }
+
+        .btn-wrap {
+            margin-top: 50px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 13s;
+        }
+
+        #startBtn {
+            padding: 12px 48px;
+            background: transparent;
+            border: 1px solid #555962;
+            color: #c8ccd4;
+            font-size: 15px;
+            letter-spacing: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        #startBtn:hover {
+            border-color: #a0a4ac;
+            color: #ffffff;
+            background: rgba(255,255,255,0.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 跳过动画提示 */
+        .skip {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 12px;
+            color: #555962;
+            cursor: pointer;
+            z-index: 3;
+            user-select: none;
+        }
+
+        .skip:hover {
+            color: #8a8f99;
+        }
+    </style>
+</head>
+<body>
+    <div class="skip" onclick="skipAnim()">点击跳过</div>
+
+    <div class="container">
+        <h1 class="game-title">空白报案记录</h1>
+
+        <div class="story">
+            <p>202X年9月12日，你的弟弟林默失联了。</p>
+            <p>电话关机、出租屋空无一人，所有社交账号停止更新，没有留下任何出行与消费痕迹。</p>
+            <p>你当天便前往辖区派出所报案，填写了完整的失踪信息，拿到了盖着公章的报案回执。</p>
+            <p>一周过去，警方没有任何回复。当你再次踏入警局询问进度时，接待你的警员却一脸茫然。</p>
+            <p>系统里没有你的报案记录，当班的所有人都声称从未见过你，更从未受理过这起失踪案。</p>
+            <p>他们说你记错了，说你可能是压力太大出现了幻觉。</p>
+            <p>但你清楚地记得一切，那纸回执还躺在你的口袋里。</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <p class="tip">
+            你不相信自己的记忆出了错。<br>
+            回到家后，你打开了辖区公安分局的官方网站，决定自己找出真相。<br>
+            提示：你需要在虚拟网页中寻找被隐藏的线索、被抹除的记录，拼凑出完整的真相。
+        </p>
+
+        <div class="btn-wrap">
+            <button id="startBtn">开 始 调 查</button>
+        </div>
+    </div>
+
+    <script>
+        // 点击开始按钮跳转至警局官网页面
+        document.getElementById('startBtn').addEventListener('click', function() {
+            window.location.href = '/01gonganju.html';
+        });
+
+        // 跳过开场动画
+        function skipAnim() {
+            const allElements = document.querySelectorAll('.game-title, .story p, .divider, .tip, .btn-wrap');
+            allElements.forEach(el => {
+                el.style.animation = 'none';
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            });
+        }
+
+        // 按任意键跳过动画
+        document.addEventListener('keydown', skipAnim);
+    </script>
+</body>
+</html>
