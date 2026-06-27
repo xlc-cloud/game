@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>宁洲市东湖区公安局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", SimHei, sans-serif;
+        }
+        body {
+            background: #fff;
+            font-size: 14px;
+        }
+        /* 头部顶部logo区 */
+        .header-top {
+            width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            gap: 12px;
+        }
+        .logo-img {
+            width: 80px;
+            height: 80px;
+        }
+        .logo-text h1 {
+            color: #0044aa;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .logo-text p {
+            color: #0044aa;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .search-box {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+        .search-input {
+            height: 36px;
+            width: 220px;
+            border: 1px solid #ccc;
+            border-right: none;
+            padding: 0 10px;
+            border-radius: 4px 0 0 4px;
+        }
+        .search-btn {
+            height: 36px;
+            width: 40px;
+            background: #dd2222;
+            border: none;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        /* 导航栏 */
+        .nav-wrap {
+            background: #0055bb;
+        }
+        .nav {
+            width: 960px;
+            margin: 0 auto;
+            display: flex;
+        }
+        .nav a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 26px;
+            font-size: 16px;
+        }
+        .nav a.active {
+            background: #ffaa00;
+            color: #000;
+        }
+        /* 头条滚动栏 */
+        .top-news-bar {
+            width: 960px;
+            margin: 8px auto;
+            background: #e8f2ff;
+            padding: 6px 10px;
+        }
+        .top-news-bar a {
+            color: #0044aa;
+            text-decoration: none;
+            margin-right: 12px;
+        }
+        /* 主容器 960px居中 */
+        .container {
+            width: 960px;
+            margin: 0 auto;
+        }
+        /* 第一行：警务资讯板块 - 调整宽度为960px */
+        .row1 {
+            margin-bottom: 15px;
+        }
+        .col-left {
+            width: 960px;
+            background: #f0f7ff;
+            border: 1px solid #b8d8f8;
+        }
+        .block-title {
+            background: #0066cc;
+            color: #fff;
+            padding: 6px 12px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .left-inner {
+            display: flex;
+            padding: 10px;
+            gap: 15px;
+        }
+        .left-banner {
+            width: 400px;
+            height: 300px;
+            background: #e0ecff;
+            border: 1px solid #b8d8f8;
+        }
+        .news-list {
+            flex: 1;
+        }
+        .news-list ul {
+            list-style: none;
+        }
+        .news-list li {
+            line-height: 28px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dotted #cce0f5;
+        }
+        .news-list a {
+            color: #003377;
+            text-decoration: none;
+        }
+        .news-date {
+            color: #666;
+            font-size: 12px;
+        }
+        .page-num {
+            margin-top: 8px;
+            text-align: right;
+        }
+        .page-num a {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            line-height: 22px;
+            text-align: center;
+            border: 1px solid #99c8f0;
+            text-decoration: none;
+            margin: 0 2px;
+        }
+        .page-num a.current {
+            background: #0055bb;
+            color: #fff;
+            border-color: #0055bb;
+        }
+        .more-btn {
+            margin-top: 8px;
+            text-align: right;
+        }
+        .more-btn a {
+            background: #0066cc;
+            color: #fff;
+            text-decoration: none;
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        /* 第二行：政务公开 - 调整公示公告宽度 */
+        .row2 {
+            margin-bottom: 15px;
+        }
+        .gov-left {
+            width: 200px;
+            background: #d0e8ff;
+            border: 1px solid #98c8f0;
+            float: left;
+        }
+        .gov-left ul {
+            list-style: none;
+        }
+        .gov-left li a {
+            display: block;
+            padding: 10px 12px;
+            color: #003377;
+            text-decoration: none;
+            border-bottom: 1px solid #b8d8f8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .gov-left li.orange a {
+            background: #ffdd77;
+            color: #cc3300;
+            font-weight: bold;
+        }
+        .gov-mid {
+            width: 750px;
+            background: #f0f7ff;
+            border: 1px solid #b8d8f8;
+            float: right;
+        }
+        .tab-head {
+            display: flex;
+            background: #e0ecff;
+        }
+        .tab-head a {
+            flex: 1;
+            text-align: center;
+            padding: 6px 0;
+            text-decoration: none;
+            color: #0044aa;
+            border-right: 1px solid #b8d8f8;
+        }
+        .tab-head a.active {
+            background: #0066cc;
+            color: #fff;
+        }
+        .list-content {
+            padding: 10px;
+        }
+        .list-content ul li {
+            line-height: 26px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dotted #cce0f5;
+        }
+        .list-content a {
+            color: #003377;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        /* 清除浮动 */
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        /* 底部友链 */
+        .friend-link {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            clear: both;
+        }
+        .link-item {
+            width: 180px;
+            height: 50px;
+            background: #e0ecff;
+            border: 1px solid #b8d8f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .link-item a {
+            color: #0044aa;
+            text-decoration: none;
+        }
+        /* 页脚版权 */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #555;
+            line-height: 22px;
+            padding: 10px 0;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部Logo+搜索 -->
+<div class="header-top">
+    <div class="logo-img">
+        <!-- 国徽图片位置，替换src -->
+        <img src="" alt="公安国徽" width="80" height="80">
+    </div>
+    <div class="logo-text">
+        <h1>宁洲市东湖区公安局</h1>
+        <p>NINGZHOU MUNICIPAL PUBLIC SECURITY BUREAU</p>
+    </div>
+    <div class="search-box">
+        <input class="search-input" placeholder="请输入关键字">
+        <button class="search-btn"><a href="#">搜索</a></button>
+    </div>
+</div>
+
+<!-- 导航栏 -->
+<div class="nav-wrap">
+    <div class="nav">
+        <a href="#" class="active">首页</a>
+        <a href="#">实时新闻</a>
+        <a href="#">网上办事</a>
+        <a href="#">政务公开</a>
+        <a href="#">局长信箱</a>
+        <a href="#">专网登录</a>
+    </div>
+</div>
+
+<!-- 顶部滚动新闻栏 -->
+<div class="top-news-bar">
+    <a href="#">公安要闻</a>
+    <a href="#">全市烟花爆竹全链条安全集中整治工作部署会召开</a>
+    <a href="#">全市中小学生防溺水工作部署会召开</a>
+    <a href="#">叶建春出席全省烟花爆竹全链条集中整治...</a>
+</div>
+
+<div class="container">
+    <!-- 第一行：警务资讯 - 宽度调整为960px，移除右侧模块 -->
+    <div class="row1">
+        <div class="col-left">
+            <div class="block-title">警务资讯</div>
+            <div class="left-inner">
+                <div class="left-banner">
+                    <!-- @国务院我来说 横幅图片 -->
+                    <img src="" alt="留言横幅" width="400" height="300">
+                    <div class="page-num">
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#" class="current">4</a>
+                        <a href="#">5</a>
+                    </div>
+                </div>
+                <div class="news-list">
+                    <div class="block-title" style="margin-bottom:6px;">实时新闻</div>
+                    <ul>
+                        <li><a href="#">公安部召开新闻发布会通报当前电信网络诈骗...</a><span class="news-date">06-22</span></li>
+                        <li><a href="#">杜绝虚假警情 守护公共警务资源</a><span class="news-date">06-19</span></li>
+                        <li><a href="#">中央宣传部、公安部联合部署在全国开展2026...</a><span class="news-date">06-11</span></li>
+                        <li><a href="#">全市烟花爆竹全链条安全集中整治工作部署会...</a><span class="news-date">05-19</span></li>
+                        <li><a href="#">全市中小学生防溺水工作部署会召开</a><span class="news-date">05-19</span></li>
+                        <li><a href="#">市局召开全市公安机关“践行正确政绩观 凝心...</a><span class="news-date">04-29</span></li>
+                        <li><a href="#">公安部部署夏季治安打击整治行动 切实维护社会治安稳定</a><span class="news-date">04-15</span></li>
+                        <li><a href="#">东湖区公安分局开展反诈宣传进社区活动</a><span class="news-date">04-10</span></li>
+                        <li><a href="#">宁州市公安局发布清明节安全出行提示</a><span class="news-date">04-01</span></li>
+                        <li><a href="#">东湖区开展春季消防安全大检查</a><span class="news-date">03-25</span></li>
+                    </ul>
+                    <div class="more-btn"><a href="#">查看更多</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第二行：政务公开 - 移除人事招录/政府采购，公示公告拉伸 -->
+    <div class="row2 clearfix">
+        <div class="gov-left">
+            <div class="block-title">政务公开</div>
+            <ul>
+                <li><a href="#">《中华人民共和国政府信息公开条例》</a></li>
+                <li><a href="#">政府信息公开规定</a></li>
+                <li><a href="#">政府信息公开指南</a></li>
+                <li><a href="#">政府信息公开年报</a></li>
+                <li><a href="#">政府网站工作年度报表</a></li>
+                <li class="orange"><a href="#">我要申请政府信息公开</a></li>
+            </ul>
+        </div>
+        <div class="gov-mid">
+            <div class="tab-head">
+                <a href="#" class="active">公示公告</a>
+            </div>
+            <div class="list-content">
+                <ul>
+                    <li><a href="#">公仆初心显担当--东湖区公安分局顾振义副局长一家善行事迹</a><span class="news-date">04-23</span></li>
+                    <li><a href="#">关于征集《宁州市公共安全视频图像信息系统管理办法》意见建议的情况</a><span class="news-date">03-15</span></li>
+                    <li><a href="#">宁州市公安局2025年度法治政府建设...</a><span class="news-date">03-13</span></li>
+                    <li><a href="#">关于公开征集《南昌市公共安全视频图像信息系统管理办法》意见建议的公告</a><span class="news-date">02-05</span></li>
+                    <li><a href="#">宁州市东湖区公安分局关于顾振义同志职务任免的通知</a><span class="news-date">01-20</span></li>
+                    <li><a href="#">关于规范警车使用与管理的通知</a><span class="news-date">12-13</span></li>
+                    <li><a href="#">关于注销1名外国籍留学生居留许可的决定</a><span class="news-date">12-24</span></li>
+                    <li><a href="#">关于更换分局内网办公系统登录端口的通知</a><span class="news-date">12-24</span></li>
+                    <li><a href="#">东湖区公安分局2024年度工作总结及2025年工作计划</a><span class="news-date">12-10</span></li>
+                    <li><a href="#">宁州市公安局关于加强春节期间安保工作的通知</a><span class="news-date">01-15</span></li>
+                    <li><a href="#">东湖区公安分局窗口服务时间调整公告</a><span class="news-date">12-01</span></li>
+                    <li><a href="#">宁州市公安局涉案财物管理中心搬迁公告</a><span class="news-date">11-20</span></li>
+                </ul>
+                <!-- 移除了公示公告的更多按钮 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 移除第三行公安文化相关模块 -->
+
+    <!-- 底部友情链接 -->
+    <div class="friend-link">
+        <div class="link-item"><a href="#">中华人民共和国公安部</a></div>
+        <div class="link-item"><a href="#">宁州市检察网</a></div>
+        <div class="link-item"><a href="#">宁州市中级人民法院</a></div>
+        <div class="link-item"><a href="#">宁州市交警民网</a></div>
+        <div class="link-item"><a href="#">宁州市司法局</a></div>
+    </div>
+
+    <!-- 页脚版权信息 -->
+    <div class="footer">
+        本网站为解密游戏 本页面为虚构内容，所有名称、事件、文件均为架空设定，与现实无关<br>
+        01
+    </div>
+</div>
+</body>
+</html>
