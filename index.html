@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>失踪记录 - 游戏开始</title>
+    <title>空白档案</title>
     <style>
         * {
             margin: 0;
@@ -12,147 +12,163 @@
         }
 
         body {
-            font-family: "Microsoft YaHei", "SimHei", sans-serif;
-            background: #0a0a0a;
-            color: #c0c0c0;
+            font-family: "SimSun", "宋体", serif;
+            background-color: #1a1a1a;
+            color: #d4d4d4;
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* 背景噪点效果 */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            align-items: center;
             background-image: 
-                radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 3px 3px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* 暗角效果 */
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            box-shadow: inset 0 0 150px rgba(0,0,0,0.9);
-            pointer-events: none;
-            z-index: 2;
+                radial-gradient(ellipse at center, #2a2a2a 0%, #111 100%);
+            overflow: hidden;
         }
 
         .container {
             max-width: 720px;
             width: 90%;
-            padding: 60px 40px;
-            position: relative;
-            z-index: 3;
-        }
-
-        .story-text {
-            font-size: 17px;
-            line-height: 2.2;
-            letter-spacing: 1px;
-            margin-bottom: 50px;
-            min-height: 320px;
-        }
-
-        .story-text p {
-            margin-bottom: 14px;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .story-text p.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .story-text p.highlight {
-            color: #e8e8e8;
-            font-weight: 500;
-        }
-
-        .hint-text {
-            margin-top: 30px;
-            padding-top: 25px;
-            border-top: 1px solid #2a2a2a;
-            font-size: 14px;
-            color: #888;
-            font-style: italic;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-
-        .hint-text.visible {
-            opacity: 1;
-        }
-
-        .btn-wrapper {
-            text-align: center;
-            margin-top: 40px;
-            opacity: 0;
-            transition: opacity 1s ease 0.5s;
-        }
-
-        .btn-wrapper.visible {
-            opacity: 1;
-        }
-
-        .start-btn {
-            background: transparent;
+            padding: 60px 50px;
+            background-color: rgba(30, 30, 30, 0.85);
             border: 1px solid #444;
-            color: #aaa;
-            padding: 14px 50px;
-            font-size: 16px;
-            letter-spacing: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+            position: relative;
         }
 
-        .start-btn:hover {
-            border-color: #888;
-            color: #fff;
-            background: rgba(255,255,255,0.03);
-            box-shadow: 0 0 20px rgba(255,255,255,0.05);
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
         }
 
         .title {
             text-align: center;
-            font-size: 28px;
-            letter-spacing: 8px;
-            margin-bottom: 50px;
-            color: #ddd;
+            font-size: 42px;
             font-weight: normal;
+            letter-spacing: 15px;
+            margin-bottom: 50px;
+            color: #c8aa6e;
+            text-shadow: 0 0 20px rgba(200, 170, 110, 0.3);
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c8aa6e, transparent);
+        }
+
+        .story {
+            line-height: 2.2;
+            font-size: 16px;
+            margin-bottom: 40px;
+            text-indent: 2em;
+            color: #bbb;
+            min-height: 320px;
+        }
+
+        .story p {
+            margin-bottom: 8px;
             opacity: 0;
-            transition: opacity 1.5s ease;
+            animation: fadeIn 0.8s forwards;
         }
 
-        .title.visible {
-            opacity: 1;
+        .story p:nth-child(1) { animation-delay: 0.3s; }
+        .story p:nth-child(2) { animation-delay: 1.2s; }
+        .story p:nth-child(3) { animation-delay: 2.1s; }
+        .story p:nth-child(4) { animation-delay: 3.2s; }
+        .story p:nth-child(5) { animation-delay: 4.5s; }
+        .story p:nth-child(6) { animation-delay: 5.8s; }
+        .story p:nth-child(7) { animation-delay: 6.8s; }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* 闪烁光标 */
-        .cursor {
-            display: inline-block;
-            width: 2px;
-            height: 18px;
-            background: #888;
-            margin-left: 4px;
+        .transition-text {
+            text-align: center;
+            font-size: 17px;
+            color: #c8aa6e;
+            margin: 30px 0;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 8s;
+            letter-spacing: 2px;
+        }
+
+        .hint {
+            font-size: 14px;
+            color: #e0c989;
+            text-align: left;
+            margin-bottom: 40px;
+            line-height: 1.9;
+            border: 1px solid #c8aa6e;
+            background-color: rgba(200, 170, 110, 0.12);
+            padding: 15px 20px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 9s;
+        }
+
+        .hint strong {
+            display: block;
+            font-size: 15px;
+            color: #dbb86a;
+            margin-bottom: 6px;
+            letter-spacing: 2px;
+        }
+
+        .btn-wrapper {
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 9.5s;
+        }
+
+        .start-btn {
+            padding: 14px 60px;
+            font-size: 18px;
+            font-family: "SimSun", "宋体", serif;
+            letter-spacing: 8px;
+            background: transparent;
+            border: 1px solid #c8aa6e;
+            color: #c8aa6e;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-btn:hover {
+            background-color: rgba(200, 170, 110, 0.1);
+            box-shadow: 0 0 20px rgba(200, 170, 110, 0.2);
+            letter-spacing: 10px;
+        }
+
+        .start-btn:active {
+            transform: scale(0.98);
+        }
+
+        .blink {
             animation: blink 1s infinite;
-            vertical-align: middle;
         }
 
         @keyframes blink {
@@ -162,24 +178,24 @@
 
         @media (max-width: 600px) {
             .container {
-                padding: 40px 20px;
-            }
-            .story-text {
-                font-size: 15px;
-                line-height: 2;
+                padding: 40px 25px;
             }
             .title {
-                font-size: 22px;
-                letter-spacing: 5px;
+                font-size: 32px;
+                letter-spacing: 10px;
+            }
+            .story {
+                font-size: 15px;
+                line-height: 2;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="title" id="title">失踪记录</h1>
+        <h1 class="title">空白档案</h1>
         
-        <div class="story-text" id="storyText">
+        <div class="story">
             <p>2026年6月1日，你的弟弟林默失联了。</p>
             <p>电话关机、出租屋空无一人。</p>
             <p>你当天便前往辖区派出所报案，填写了完整的失踪信息，拿到了盖着公章的报案回执。</p>
@@ -187,82 +203,42 @@
             <p>系统里没有你的报案记录，也不承认你的报案回执，当班的所有人都声称从未见过你，更从未受理过这起失踪案。</p>
             <p>他们说你记错了，说你可能是压力太大出现了幻觉。</p>
             <p>但你清楚地记得一切，那纸回执还躺在你的口袋里。</p>
-            <p class="highlight">你不相信自己的记忆出了错。</p>
-            <p class="highlight">回到家后，你打开了辖区公安分局的官方网站，决定自己找出真相。</p>
         </div>
 
-        <div class="hint-text" id="hintText">
-            提示：你需要在虚拟网页中寻找被隐藏的线索、被抹除的记录，拼凑出完整的真相。
+        <div class="transition-text">
+            你不相信自己的记忆出了错。<br>
+            回到家后，你打开了辖区公安分局的官方网站，决定自己找出真相。
         </div>
 
-        <div class="btn-wrapper" id="btnWrapper">
+        <div class="hint">
+            <strong>【游戏提示】</strong>
+            你需要在虚拟网页中点击或使用搜索功能寻找线索。<br>
+            本游戏不需要更改网址、查看源代码或使用其他开发者工具，这样会影响游戏体验。
+        </div>
+
+        <div class="btn-wrapper">
             <button class="start-btn" onclick="startGame()">开 始 调 查</button>
         </div>
     </div>
 
     <script>
-        const paragraphs = document.querySelectorAll('.story-text p');
-        const title = document.getElementById('title');
-        const hintText = document.getElementById('hintText');
-        const btnWrapper = document.getElementById('btnWrapper');
-        
-        let currentPara = 0;
-
-        // 标题先出现
-        setTimeout(() => {
-            title.classList.add('visible');
-        }, 500);
-
-        // 逐段显示故事
-        function showNextParagraph() {
-            if (currentPara < paragraphs.length) {
-                paragraphs[currentPara].classList.add('visible');
-                currentPara++;
-                // 根据段落长度调整显示间隔
-                const textLength = paragraphs[currentPara - 1].textContent.length;
-                const delay = Math.max(1200, textLength * 55);
-                setTimeout(showNextParagraph, delay);
-            } else {
-                // 全部显示完后出现提示和按钮
-                setTimeout(() => {
-                    hintText.classList.add('visible');
-                }, 800);
-                setTimeout(() => {
-                    btnWrapper.classList.add('visible');
-                }, 1500);
-            }
-        }
-
-        // 延迟启动故事展示
-        setTimeout(showNextParagraph, 1800);
-
         function startGame() {
             // 添加淡出效果
-            document.body.style.transition = 'opacity 0.8s ease';
+            document.body.style.transition = 'opacity 0.5s ease';
             document.body.style.opacity = '0';
-            setTimeout(() => {
+            
+            setTimeout(function() {
                 window.location.href = '/game/01gonganju.html';
-            }, 800);
+            }, 500);
         }
 
-        // 按任意键或点击也可跳过动画直接显示全部
-        document.addEventListener('keydown', skipAnimation);
-        document.addEventListener('click', function(e) {
-            if (e.target.tagName !== 'BUTTON') {
-                skipAnimation();
+        // 按空格键或回车键也可以开始
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                startGame();
             }
         });
-
-        let skipped = false;
-        function skipAnimation() {
-            if (skipped) return;
-            skipped = true;
-            
-            title.classList.add('visible');
-            paragraphs.forEach(p => p.classList.add('visible'));
-            hintText.classList.add('visible');
-            btnWrapper.classList.add('visible');
-        }
     </script>
 </body>
 </html>
