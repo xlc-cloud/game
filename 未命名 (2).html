@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>杜绝虚假警情 守护公共警务资源 - 宁洲市东湖区公安局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", SimHei, sans-serif;
+        }
+        body {
+            background: #fff;
+            font-size: 14px;
+        }
+        /* 头部顶部logo区 */
+        .header-top {
+            width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            gap: 12px;
+            border-bottom: 2px solid #0055bb;
+        }
+        .logo-img {
+            width: 80px;
+            height: 80px;
+        }
+        .logo-text h1 {
+            color: #0044aa;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .logo-text p {
+            color: #0044aa;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        /* 主容器 960px居中 */
+        .container {
+            width: 960px;
+            margin: 0 auto;
+        }
+        .block-title {
+            background: #0066cc;
+            color: #fff;
+            padding: 8px 15px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        /* 通知内容容器 */
+        .notice-wrap {
+            width: 960px;
+            background: #f0f7ff;
+            border: 1px solid #b8d8f8;
+            margin-bottom: 20px;
+        }
+        .notice-content {
+            padding: 30px 40px;
+            line-height: 2;
+            color: #222;
+            font-size: 15px;
+            background: #fff;
+            min-height: 300px;
+        }
+        .notice-content h2 {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 22px;
+            font-weight: normal;
+        }
+        .error-text {
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+            font-family: monospace;
+        }
+        .notice-footer {
+            text-align: right;
+            margin-top: 40px;
+            padding-right: 20px;
+            color: #333;
+        }
+        /* 页脚版权 */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #555;
+            line-height: 22px;
+            padding: 15px 0;
+            border-top: 1px solid #cce0f5;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部Logo+标题 -->
+<div class="header-top">
+    <div class="logo-img">
+        <img src="/game/pic/01logo.png" alt="公安国徽" width="80" height="80">
+    </div>
+    <div class="logo-text">
+        <h1>宁洲市东湖区公安局</h1>
+        <p>NINGZHOU MUNICIPAL PUBLIC SECURITY BUREAU</p>
+    </div>
+</div>
+
+<div class="container">
+    <!-- 通知正文区域 -->
+    <div class="notice-wrap">
+        <div class="block-title">警务通告</div>
+        <div class="notice-content">
+            <h2>已被发布者删除</h2>
+            <div class="error-text">
+                <div id="text-a">undefined</div>
+                <div id="text-b" style="display:none;">���ļ�ʧЧ���ݻ���error���޷���ȡ����</div>
+            </div>
+
+            <div class="notice-footer">
+                <p>宁洲市东湖区公安局</p>
+                <p>2026年6月19日</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚版权信息 -->
+    <div class="footer">
+        本网站为解密游戏 本页面为虚构内容，所有名称、事件、文件均为架空设定，与现实无关<br>
+        02
+    </div>
+</div>
+
+<script>
+    const textA = document.getElementById('text-a');
+    const textB = document.getElementById('text-b');
+    let showA = true;
+
+    function glitchToggle() {
+        if (showA) {
+            textA.style.display = 'none';
+            textB.style.display = 'block';
+        } else {
+            textA.style.display = 'block';
+            textB.style.display = 'none';
+        }
+        showA = !showA;
+        // 随机间隔 200-900ms，模拟卡顿、不规律闪烁的效果
+        const delay = Math.random() * 700 + 200;
+        setTimeout(glitchToggle, delay);
+    }
+
+    // 页面加载完成后启动切换
+    window.addEventListener('load', glitchToggle);
+</script>
+</body>
+</html>
