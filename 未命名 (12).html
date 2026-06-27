@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>局长信箱 - 宁洲市东湖区公安局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", SimHei, sans-serif;
+        }
+        body {
+            background: #fff;
+            font-size: 14px;
+        }
+        /* 头部顶部logo区 */
+        .header-top {
+            width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            gap: 12px;
+        }
+        .logo-img {
+            width: 80px;
+            height: 80px;
+        }
+        .logo-text h1 {
+            color: #0044aa;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .logo-text p {
+            color: #0044aa;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        /* 头条滚动栏 */
+        .top-news-bar {
+            display: none;
+        }
+        /* 局长信箱横幅 */
+        .banner-container {
+            width: 960px;
+            margin: 0 auto;
+        }
+        .banner {
+            width: 100%;
+            overflow: hidden;
+        }
+        .banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        /* 主容器 960px居中 */
+        .container {
+            width: 960px;
+            margin: 0 auto;
+        }
+        .block-title {
+            background: #0066cc;
+            color: #fff;
+            padding: 6px 12px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        /* 信箱内容整块容器 */
+        .mail-wrap {
+            width: 960px;
+            background: #f0f7ff;
+            border: 1px solid #b8d8f8;
+            margin: 15px 0;
+        }
+        .mail-list {
+            padding: 10px 15px;
+        }
+        .mail-item {
+            padding: 22px 10px;
+            border-bottom: 1px dotted #cce0f5;
+            line-height: 2;
+        }
+        .mail-item:last-child {
+            border-bottom: none;
+        }
+        .mail-title {
+            font-size: 18px;
+            color: #003377;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .mail-address {
+            font-size: 15px;
+            color: #333;
+        }
+        .mail-address a {
+            color: #0044aa;
+            text-decoration: none;
+        }
+        .mail-address a:hover {
+            color: #dd2222;
+            text-decoration: underline;
+        }
+        /* 清除浮动 */
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        /* 页脚版权 */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #555;
+            line-height: 22px;
+            padding: 10px 0;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部Logo区域 -->
+<div class="header-top">
+    <div class="logo-img">
+        <img src="/game/pic/01logo.png" alt="公安国徽" width="80" height="80">
+    </div>
+    <div class="logo-text">
+        <h1>宁洲市东湖区公安局</h1>
+        <p>NINGZHOU MUNICIPAL PUBLIC SECURITY BUREAU</p>
+    </div>
+</div>
+
+<!-- 局长信箱横幅 -->
+<div class="banner-container">
+    <div class="banner">
+        <img src="/game/pic/01juzhang.png" alt="局长信箱" width="1756" height="500">
+    </div>
+</div>
+
+<!-- 顶部滚动栏保留隐藏状态 -->
+<div class="top-news-bar">
+</div>
+
+<div class="container">
+    <!-- 局长信箱主内容 -->
+    <div class="mail-wrap">
+        <div class="block-title">局长信箱</div>
+        <div class="mail-list">
+            <div class="mail-item">
+                <div class="mail-title">局长：赵伟德</div>
+                <div class="mail-address">电子邮箱：<a href="mailto:zwd00265@nzs.gov.cn">zwd00265@nzs.gov.cn</a></div>
+            </div>
+            <div class="mail-item">
+                <div class="mail-title">副局长：顾振义</div>
+                <div class="mail-address">电子邮箱：<a href="mailto:gzy00864@nzs.gov.cn">gzy00864@nzs.gov.cn</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚版权信息 -->
+    <div class="footer">
+        本网站为解密游戏 本页面为虚构内容，所有名称、事件、文件均为架空设定，与现实无关<br>
+        03
+    </div>
+</div>
+</body>
+</html>
