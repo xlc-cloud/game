@@ -281,7 +281,7 @@
 <!-- 头部Logo+搜索 -->
 <div class="header-top">
     <div class="logo-img">
-        <!-- 国徽图片位置，替换src -->
+        <!-- 国徽图片路径：根目录/pic/01logo.png（原路径正确无需修改） -->
         <img src="/pic/01logo.png" alt="公安国徽" width="80" height="80">
     </div>
     <div class="logo-text">
@@ -294,15 +294,18 @@
     </div>
 </div>
 
-<!-- 导航栏 -->
+<!-- 导航栏（已修改3处：实时新闻、政务公开文字+地址、专网登录地址） -->
 <div class="nav-wrap">
     <div class="nav">
         <a href="#" class="active">首页</a>
-        <a href="#">实时新闻</a>
+        <!-- 实时新闻跳转 /game/01shishi.html -->
+        <a href="/game/01shishi.html">实时新闻</a>
         <a href="#">网上办事</a>
-        <a href="#">政务公开</a>
+        <!-- 文字改为公示公告，跳转 /game/01gongshi.html -->
+        <a href="/game/01gongshi.html">公示公告</a>
         <a href="#">局长信箱</a>
-        <a href="#">专网登录</a>
+        <!-- 专网登录跳转 /game/01zhuanwang.html -->
+        <a href="/game/01zhuanwang.html">专网登录</a>
     </div>
 </div>
 
@@ -315,13 +318,13 @@
 </div>
 
 <div class="container">
-    <!-- 第一行：警务资讯 - 宽度调整为960px，移除右侧模块 -->
+    <!-- 第一行：警务资讯 -->
     <div class="row1">
         <div class="col-left">
             <div class="block-title">警务资讯</div>
             <div class="left-inner">
                 <div class="left-banner">
-                    <!-- @国务院我来说 横幅图片 -->
+                    <!-- 留言横幅图片路径：根目录/pic/01picture.png（原路径正确无需修改） -->
                     <img src="/pic/01picture.png" alt="留言横幅" width="400" height="300">
                     <div class="page-num">
                         <a href="#">1</a>
@@ -345,13 +348,14 @@
                         <li><a href="#">宁州市公安局发布清明节安全出行提示</a><span class="news-date">04-01</span></li>
                         <li><a href="#">东湖区开展春季消防安全大检查</a><span class="news-date">03-25</span></li>
                     </ul>
-                    <div class="more-btn"><a href="#">查看更多</a></div>
+                    <!-- 查看更多跳转 /game/01shishi.html -->
+                    <div class="more-btn"><a href="/game/01shishi.html">查看更多</a></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 第二行：政务公开 - 移除人事招录/政府采购，公示公告拉伸 -->
+    <!-- 第二行：政务公开 -->
     <div class="row2 clearfix">
         <div class="gov-left">
             <div class="block-title">政务公开</div>
@@ -383,12 +387,9 @@
                     <li><a href="#">东湖区公安分局窗口服务时间调整公告</a><span class="news-date">12-01</span></li>
                     <li><a href="#">宁州市公安局涉案财物管理中心搬迁公告</a><span class="news-date">11-20</span></li>
                 </ul>
-                <!-- 移除了公示公告的更多按钮 -->
             </div>
         </div>
     </div>
-
-    <!-- 移除第三行公安文化相关模块 -->
 
     <!-- 底部友情链接 -->
     <div class="friend-link">
