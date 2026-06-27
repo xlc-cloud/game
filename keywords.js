@@ -1,13 +1,13 @@
 // 关键词库 - 可自行扩展添加
 var keywordList = [
     {
-        keyword: "反诈",
-        title: "东湖区公安分局开展反诈宣传进社区活动",
-        url: "#",
-        date: "04-10"
+        keyword: "顾振义",
+        title: "局长信箱页面存档",
+        url: "/game/03email.html",
+
     },
     {
-        keyword: "防溺水",
+        keyword: "顾振义",
         title: "全市中小学生防溺水工作部署会召开",
         url: "#",
         date: "05-19"
