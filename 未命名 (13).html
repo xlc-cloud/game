@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>专网办公系统 - 宁洲市东湖区公安局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", SimHei, sans-serif;
+        }
+        body {
+            background: #fff;
+            font-size: 14px;
+        }
+        /* 头部顶部logo区 */
+        .header-top {
+            width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            gap: 12px;
+        }
+        .logo-img {
+            width: 80px;
+            height: 80px;
+        }
+        .logo-text h1 {
+            color: #0044aa;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .logo-text p {
+            color: #0044aa;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .user-info {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            color: #333;
+            font-size: 14px;
+        }
+        .user-info a {
+            color: #dd2222;
+            text-decoration: none;
+            margin-left: 12px;
+        }
+        .user-info a:hover {
+            text-decoration: underline;
+        }
+        /* 账号提示红色条幅 */
+        .alert-bar {
+            width: 960px;
+            margin: 0 auto 15px;
+            background: #fff1f0;
+            border: 1px solid #ffccc7;
+            color: #cf1322;
+            padding: 10px 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+        /* 主容器 960px居中 */
+        .container {
+            width: 960px;
+            margin: 0 auto;
+            min-height: 450px;
+        }
+        .block-title {
+            background: #0066cc;
+            color: #fff;
+            padding: 6px 12px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        /* 左侧导航栏 */
+        .sidebar {
+            width: 200px;
+            background: #f0f7ff;
+            border: 1px solid #b8d8f8;
+            float: left;
+        }
+        .sidebar ul {
+            list-style: none;
+        }
+        .sidebar li a {
+            display: block;
+            padding: 12px 15px;
+            color: #003377;
+            text-decoration: none;
+            border-bottom: 1px solid #cce0f5;
+            cursor: pointer;
+        }
+        .sidebar li.active a {
+            background: #0066cc;
+            color: #fff;
+        }
+        .sidebar li a:hover {
+            background: #d6e8ff;
+            color: #003377;
+        }
+        .sidebar li.active a:hover {
+            background: #0066cc;
+            color: #fff;
+        }
+        /* 右侧内容区 */
+        .content-wrap {
+            width: 740px;
+            background: #f0f7ff;
+            border: 1px solid #b8d8f8;
+            float: right;
+            min-height: 450px;
+        }
+        .content-body {
+            padding: 15px;
+        }
+        /* 通用列表样式 */
+        .common-list {
+            list-style: none;
+        }
+        .common-list li {
+            line-height: 30px;
+            border-bottom: 1px dotted #cce0f5;
+            padding: 4px 2px;
+        }
+        .common-list a {
+            color: #003377;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .common-list a:hover {
+            color: #dd2222;
+            text-decoration: underline;
+        }
+        /* 空状态提示 */
+        .empty-tip {
+            padding: 80px 0;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+        /* 详情页样式 */
+        .detail-box {
+            line-height: 2;
+            color: #333;
+        }
+        .detail-box h3 {
+            color: #003377;
+            border-bottom: 1px dotted #cce0f5;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .back-btn {
+            margin-bottom: 10px;
+        }
+        .back-btn a {
+            color: #0044aa;
+            text-decoration: none;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .back-btn a:hover {
+            color: #dd2222;
+            text-decoration: underline;
+        }
+        /* 清除浮动 */
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        /* 页脚版权 */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #555;
+            line-height: 22px;
+            padding: 10px 0;
+            border-top: 1px solid #cce0f5;
+            margin-top: 20px;
+            clear: both;
+        }
+        /* 面板默认隐藏 */
+        .panel {
+            display: none;
+        }
+        .panel.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部Logo+用户信息 -->
+<div class="header-top">
+    <div class="logo-img">
+        <img src="/game/pic/01logo.png" alt="公安国徽" width="80" height="80">
+    </div>
+    <div class="logo-text">
+        <h1>宁洲市东湖区公安局</h1>
+        <p>NINGZHOU MUNICIPAL PUBLIC SECURITY BUREAU</p>
+    </div>
+    <div class="user-info">
+        <span>欢迎你，刘长宏</span>
+        <a href="/game/01zhuanwang.html">退出登录</a>
+    </div>
+</div>
+
+<!-- 红色提示条幅 -->
+<div class="alert-bar">
+    本账号所有人职务发生变动，密码已恢复默认，账号即将注销
+</div>
+
+<div class="container clearfix">
+    <!-- 左侧导航栏 -->
+    <div class="sidebar">
+        <div class="block-title">办公导航</div>
+        <ul>
+            <li class="active" data-target="notice"><a>工作通知</a></li>
+            <li data-target="memo"><a>备忘录</a></li>
+            <li data-target="mail"><a>收件箱</a></li>
+        </ul>
+    </div>
+
+    <!-- 右侧内容区 -->
+    <div class="content-wrap">
+        <div class="block-title" id="contentTitle">工作通知</div>
+        <div class="content-body">
+            <!-- 工作通知面板 -->
+            <div class="panel active" id="noticePanel">
+                <div class="empty-tip">近30天无新增工作通知</div>
+            </div>
+
+            <!-- 备忘录面板 -->
+            <div class="panel" id="memoPanel">
+                <!-- 备忘录列表 -->
+                <div class="memo-list">
+                    <ul class="common-list">
+                        <li><a data-memo="1">test1</a></li>
+                        <li><a data-memo="2">test2</a></li>
+                        <li><a data-memo="3">test3</a></li>
+                    </ul>
+                </div>
+                <!-- 备忘录详情 -->
+                <div class="memo-detail panel" id="memoDetail">
+                    <div class="back-btn"><a id="memoBack">← 返回备忘录列表</a></div>
+                    <div class="detail-box">
+                        <h3 id="memoDetailTitle"></h3>
+                        <div id="memoDetailContent"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 收件箱面板 -->
+            <div class="panel" id="mailPanel">
+                <!-- 邮件列表 -->
+                <div class="mail-list">
+                    <ul class="common-list">
+                        <li><a data-mail="1">test1</a></li>
+                        <li><a data-mail="2">test2</a></li>
+                        <li><a data-mail="3">test3</a></li>
+                    </ul>
+                </div>
+                <!-- 邮件详情 -->
+                <div class="mail-detail panel" id="mailDetail">
+                    <div class="back-btn"><a id="mailBack">← 返回收件箱列表</a></div>
+                    <div class="detail-box">
+                        <h3 id="mailDetailTitle"></h3>
+                        <div id="mailDetailContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚版权信息 -->
+    <div class="footer">
+        本网站为解密游戏 本页面为虚构内容，所有名称、事件、文件均为架空设定，与现实无关<br>
+        01
+    </div>
+</div>
+
+<script>
+    // 模拟数据
+    var memoData = {
+        1: { title: 'test1', content: '这是备忘录test1的详情内容。' },
+        2: { title: 'test2', content: '这是备忘录test2的详情内容。' },
+        3: { title: 'test3', content: '这是备忘录test3的详情内容。' }
+    };
+    var mailData = {
+        1: { title: 'test1', content: '这是邮件test1的详情内容。' },
+        2: { title: 'test2', content: '这是邮件test2的详情内容。' },
+        3: { title: 'test3', content: '这是邮件test3的详情内容。' }
+    };
+
+    var navItems = document.querySelectorAll('.sidebar li');
+    var contentTitle = document.getElementById('contentTitle');
+    var noticePanel = document.getElementById('noticePanel');
+    var memoPanel = document.getElementById('memoPanel');
+    var mailPanel = document.getElementById('mailPanel');
+    var memoDetail = document.getElementById('memoDetail');
+    var mailDetail = document.getElementById('mailDetail');
+
+    // 左侧导航切换
+    navItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            // 切换导航高亮
+            navItems.forEach(function(i) { i.classList.remove('active'); });
+            item.classList.add('active');
+
+            var target = item.getAttribute('data-target');
+            // 隐藏所有面板
+            noticePanel.classList.remove('active');
+            memoPanel.classList.remove('active');
+            mailPanel.classList.remove('active');
+            memoDetail.classList.remove('active');
+            mailDetail.classList.remove('active');
+
+            // 显示对应面板
+            if (target === 'notice') {
+                noticePanel.classList.add('active');
+                contentTitle.innerText = '工作通知';
+            } else if (target === 'memo') {
+                memoPanel.classList.add('active');
+                // 默认显示列表
+                document.querySelector('.memo-list').style.display = 'block';
+                memoDetail.classList.remove('active');
+                contentTitle.innerText = '备忘录';
+            } else if (target === 'mail') {
+                mailPanel.classList.add('active');
+                document.querySelector('.mail-list').style.display = 'block';
+                mailDetail.classList.remove('active');
+                contentTitle.innerText = '收件箱';
+            }
+        });
+    });
+
+    // 备忘录条目点击进入详情
+    document.querySelectorAll('.memo-list a').forEach(function(a) {
+        a.addEventListener('click', function() {
+            var id = a.getAttribute('data-memo');
+            var data = memoData[id];
+            document.getElementById('memoDetailTitle').innerText = data.title;
+            document.getElementById('memoDetailContent').innerText = data.content;
+            
+            document.querySelector('.memo-list').style.display = 'none';
+            memoDetail.classList.add('active');
+        });
+    });
+
+    // 备忘录返回列表
+    document.getElementById('memoBack').addEventListener('click', function() {
+        memoDetail.classList.remove('active');
+        document.querySelector('.memo-list').style.display = 'block';
+    });
+
+    // 收件箱条目点击进入详情
+    document.querySelectorAll('.mail-list a').forEach(function(a) {
+        a.addEventListener('click', function() {
+            var id = a.getAttribute('data-mail');
+            var data = mailData[id];
+            document.getElementById('mailDetailTitle').innerText = data.title;
+            document.getElementById('mailDetailContent').innerText = data.content;
+            
+            document.querySelector('.mail-list').style.display = 'none';
+            mailDetail.classList.add('active');
+        });
+    });
+
+    // 收件箱返回列表
+    document.getElementById('mailBack').addEventListener('click', function() {
+        mailDetail.classList.remove('active');
+        document.querySelector('.mail-list').style.display = 'block';
+    });
+</script>
+</body>
+</html>
