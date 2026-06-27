@@ -180,11 +180,11 @@
     <div class="search-result-box">
         <div class="block-title">搜索结果</div>
         <div class="result-tip">
-            您搜索的关键词：<span id="keywordText"></span>
+            搜索内容：<span id="keywordText"></span>
         </div>
         <div class="result-list">
             <ul id="resultList"></ul>
-            <div class="no-result" id="noResult" style="display:none;">未找到相关内容，请更换关键词重试</div>
+            <div class="no-result" id="noResult" style="display:none;">未找到相关内容</div>
         </div>
     </div>
 
@@ -196,7 +196,7 @@
 </div>
 
 <!-- 引入根目录下的关键词表 -->
-<script src="/game/keywords.js"></script>
+<script src="/keywords.js"></script>
 <script>
 // 获取URL中的关键词参数
 function getQueryParam(name) {
@@ -217,22 +217,32 @@ var searchBtn = document.getElementById('searchBtn');
 keywordText.innerText = keyword;
 searchInput.value = keyword;
 
-// 执行搜索匹配（模糊匹配：关键词包含搜索内容即命中）
+// 字符串标准化：统一小写、去全部空格、过滤常见中英文标点
+function normalizeStr(str) {
+    if (!str) return '';
+    return str.toLowerCase()
+              .replace(/\s+/g, '')
+              .replace(/[，。！？、；：""''（）\(\)\[\]【】,.!?;:\'\"\-_·~]/g, '');
+}
+
+// 执行搜索匹配（精确匹配 + 忽略大小写/空格/标点）
 function doSearch() {
     if (!keyword) {
         noResult.style.display = 'block';
         return;
     }
     
+    var userKeywordNorm = normalizeStr(keyword);
     var matchList = [];
+
     for (var i = 0; i < keywordList.length; i++) {
-        // 模糊匹配，不区分大小写
-        if (keywordList[i].keyword.indexOf(keyword) > -1 || keyword.indexOf(keywordList[i].keyword) > -1) {
+        var itemKeywordNorm = normalizeStr(keywordList[i].keyword);
+        // 标准化后完全相等才算命中
+        if (userKeywordNorm === itemKeywordNorm) {
             matchList.push(keywordList[i]);
         }
     }
 
-    // 渲染结果
     if (matchList.length === 0) {
         noResult.style.display = 'block';
         return;
@@ -252,7 +262,7 @@ doSearch();
 function goSearch() {
     var newKeyword = searchInput.value.trim();
     if (!newKeyword) {
-        alert('请输入搜索关键字');
+        alert('请输入内容');
         return;
     }
     window.location.href = '/game/search.html?keyword=' + encodeURIComponent(newKeyword);
