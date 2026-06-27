@@ -51,7 +51,7 @@
             color: #e6e8ec;
             margin-bottom: 50px;
             opacity: 0;
-            animation: fadeIn 1.2s ease forwards;
+            animation: fadeIn 1.2 ease forwards;
         }
 
         .story p {
@@ -59,17 +59,17 @@
             line-height: 2;
             margin-bottom: 14px;
             opacity: 0;
-            animation: fadeIn 1.2s ease forwards;
+            animation: fadeIn 1.2 ease forwards;
         }
 
         /* 逐行淡入动画延迟 */
-        .story p:nth-child(1) { animation-delay: 1.5s; }
-        .story p:nth-child(2) { animation-delay: 3s; }
-        .story p:nth-child(3) { animation-delay: 4.5s; }
-        .story p:nth-child(4) { animation-delay: 6s; }
-        .story p:nth-child(5) { animation-delay: 7.5s; }
-        .story p:nth-child(6) { animation-delay: 9s; }
-        .story p:nth-child(7) { animation-delay: 10.5s; }
+        .story p:nth-child(1) { animation-delay: 1.5; }
+        .story p:nth-child(2) { animation-delay: 3; }
+        .story p:nth-child(3) { animation-delay: 4.5; }
+        .story p:nth-child(4) { animation-delay: 6; }
+        .story p:nth-child(5) { animation-delay: 7.5; }
+        .story p:nth-child(6) { animation-delay: 9; }
+        .story p:nth-child(7) { animation-delay: 10.5; }
 
         .divider {
             width: 100%;
@@ -77,8 +77,8 @@
             background: #2a2d33;
             margin: 40px 0 30px 0;
             opacity: 0;
-            animation: fadeIn 1s ease forwards;
-            animation-delay: 11.5s;
+            animation: fadeIn 1 ease forwards;
+            animation-delay: 11.5;
         }
 
         .tip {
@@ -86,16 +86,16 @@
             color: #8a8f99;
             line-height: 1.8;
             opacity: 0;
-            animation: fadeIn 1s ease forwards;
-            animation-delay: 12s;
+            animation: fadeIn 1 ease forwards;
+            animation-delay: 12;
         }
 
         .btn-wrap {
             margin-top: 50px;
             text-align: center;
             opacity: 0;
-            animation: fadeIn 1s ease forwards;
-            animation-delay: 13s;
+            animation: fadeIn 1 ease forwards;
+            animation-delay: 13;
         }
 
         #startBtn {
@@ -106,7 +106,7 @@
             font-size: 15px;
             letter-spacing: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3 ease;
             font-family: inherit;
         }
 
@@ -145,11 +145,11 @@
         <h1 class="game-title">空白报案记录</h1>
 
         <div class="story">
-            <p>202X年9月12日，你的弟弟林默失联了。</p>
-            <p>电话关机、出租屋空无一人，所有社交账号停止更新，没有留下任何出行与消费痕迹。</p>
+            <p>2026年6月1日，你的弟弟林默失联了。</p>
+            <p>电话关机、出租屋空无一人。</p>
             <p>你当天便前往辖区派出所报案，填写了完整的失踪信息，拿到了盖着公章的报案回执。</p>
             <p>一周过去，警方没有任何回复。当你再次踏入警局询问进度时，接待你的警员却一脸茫然。</p>
-            <p>系统里没有你的报案记录，当班的所有人都声称从未见过你，更从未受理过这起失踪案。</p>
+            <p>系统里没有你的报案记录，也不承认你的报案回执，当班的所有人都声称从未见过你，更从未受理过这起失踪案。</p>
             <p>他们说你记错了，说你可能是压力太大出现了幻觉。</p>
             <p>但你清楚地记得一切，那纸回执还躺在你的口袋里。</p>
         </div>
@@ -170,7 +170,7 @@
     <script>
         // 点击开始按钮跳转至警局官网页面
         document.getElementById('startBtn').addEventListener('click', function() {
-            window.location.href = '/01gonganju.html';
+            window.location.href = '/game/01gonganju.html';
         });
 
         // 跳过开场动画
