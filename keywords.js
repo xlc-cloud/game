@@ -1,7 +1,7 @@
 // 关键词库 - 可自行扩展添加
 var keywordList = [
     {
-        keyword: "顾振义",
+        keyword: "刘长宏",
         title: "局长信箱页面存档",
         url: "/game/03email.html",
 
