@@ -18,10 +18,10 @@ var keywordList = [
         url: "/game/05anning.html",
     },
     {
-        keyword: "顾振义",
-        title: "宁州市东湖区公安分局关于顾振义同志职务任免的通知",
-        url: "#",
-        date: "01-20"
+        keyword: "聘查查",
+        title: "警惕高薪招聘骗局 守护群众财产安全",
+        url: "/game/07chacha.html",
+
     },
     {
         keyword: "电信诈骗",
