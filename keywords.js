@@ -13,10 +13,9 @@ var keywordList = [
 
     },
     {
-        keyword: "烟花爆竹",
-        title: "全市烟花爆竹全链条安全集中整治工作部署会召开",
-        url: "#",
-        date: "05-19"
+        keyword: "安宁建工",
+        title: "宁洲市关于表彰安宁建工有限公司的通报",
+        url: "/game/05anning.html",
     },
     {
         keyword: "顾振义",
