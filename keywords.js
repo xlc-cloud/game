@@ -7,10 +7,10 @@ var keywordList = [
 
     },
     {
-        keyword: "刘长宏",
-        title: "全市中小学生防溺水工作部署会召开",
-        url: "#",
-        date: "05-19"
+        keyword: "永和路",
+        title: "宁州市东湖区永和路片区开发建设规划公示",
+        url: "/game/04yonghelu.html",
+
     },
     {
         keyword: "烟花爆竹",
