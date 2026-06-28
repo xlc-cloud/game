@@ -71,7 +71,7 @@
 
         .story {
             line-height: 2.2;
-            font-size: 16px;
+            font-size: 20px;
             margin-bottom: 40px;
             text-indent: 2em;
             color: #bbb;
@@ -81,16 +81,16 @@
         .story p {
             margin-bottom: 8px;
             opacity: 0;
-            animation: fadeIn 0.8s forwards;
+            animation: fadeIn 0.8 forwards;
         }
 
-        .story p:nth-child(1) { animation-delay: 0.3s; }
-        .story p:nth-child(2) { animation-delay: 1.2s; }
-        .story p:nth-child(3) { animation-delay: 2.1s; }
-        .story p:nth-child(4) { animation-delay: 3.2s; }
-        .story p:nth-child(5) { animation-delay: 4.5s; }
-        .story p:nth-child(6) { animation-delay: 5.8s; }
-        .story p:nth-child(7) { animation-delay: 6.8s; }
+        .story p:nth-child(1) { animation-delay: 0.3; }
+        .story p:nth-child(2) { animation-delay: 1.2; }
+        .story p:nth-child(3) { animation-delay: 2.1; }
+        .story p:nth-child(4) { animation-delay: 3.2; }
+        .story p:nth-child(5) { animation-delay: 4.5; }
+        .story p:nth-child(6) { animation-delay: 5.8; }
+        .story p:nth-child(7) { animation-delay: 6.8; }
 
         @keyframes fadeIn {
             from {
@@ -109,8 +109,8 @@
             color: #c8aa6e;
             margin: 30px 0;
             opacity: 0;
-            animation: fadeIn 1s forwards;
-            animation-delay: 8s;
+            animation: fadeIn 1 forwards;
+            animation-delay: 8;
             letter-spacing: 2px;
         }
 
@@ -124,8 +124,8 @@
             background-color: rgba(200, 170, 110, 0.12);
             padding: 15px 20px;
             opacity: 0;
-            animation: fadeIn 1s forwards;
-            animation-delay: 9s;
+            animation: fadeIn 1 forwards;
+            animation-delay: 9;
         }
 
         .hint strong {
@@ -139,8 +139,8 @@
         .btn-wrapper {
             text-align: center;
             opacity: 0;
-            animation: fadeIn 1s forwards;
-            animation-delay: 9.5s;
+            animation: fadeIn 1 forwards;
+            animation-delay: 9.5;
         }
 
         .start-btn {
@@ -152,7 +152,7 @@
             border: 1px solid #c8aa6e;
             color: #c8aa6e;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3 ease;
             position: relative;
             overflow: hidden;
         }
@@ -168,7 +168,7 @@
         }
 
         .blink {
-            animation: blink 1s infinite;
+            animation: blink 1 infinite;
         }
 
         @keyframes blink {
@@ -198,7 +198,8 @@
         <div class="story">
             <p>2026年6月1日，你的弟弟林默失联了。</p>
             <p>电话关机、出租屋空无一人。</p>
-            <p>你当天便前往辖区派出所报案，填写了完整的失踪信息，拿到了盖着公章的报案回执。</p>
+            <p>你找遍了这个你熟悉的宁州市，却没有任何线索</p>
+            <p>你次日便前往辖区派出所报案，填写了完整的失踪信息，拿到了盖着公章的报案回执。</p>
             <p>一周过去，警方没有任何回复。当你再次踏入警局询问进度时，接待你的警员却一脸茫然。</p>
             <p>系统里没有你的报案记录，也不承认你的报案回执，当班的所有人都声称从未见过你，更从未受理过这起失踪案。</p>
             <p>他们说你记错了，说你可能是压力太大出现了幻觉。</p>
@@ -207,7 +208,7 @@
 
         <div class="transition-text">
             你不相信自己的记忆出了错。<br>
-            回到家后，你打开了辖区公安分局的官方网站，决定自己找出真相。
+            回到家后，抱着试一试的心态，打开了宁州市公安局的网站，决定自己找出真相。
         </div>
 
         <div class="hint">
