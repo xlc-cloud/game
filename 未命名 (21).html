@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聘查查 - 专业招聘求职平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            color: #333;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        /* 顶部导航栏 */
+        .header {
+            background-color: #2c5aa0;
+            color: #fff;
+            border-bottom: 3px solid #1a3d70;
+        }
+
+        .header-top {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-area img {
+            width: 48px;
+            height: 48px;
+            display: block;
+        }
+
+        .logo-area h1 {
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .user-actions a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+
+        .user-actions a:hover {
+            text-decoration: underline;
+        }
+
+        /* 导航菜单 */
+        .nav {
+            background-color: #1a3d70;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 24px;
+            font-size: 15px;
+            display: block;
+            cursor: pointer;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            background-color: #2c5aa0;
+        }
+
+        /* 主体内容 */
+        .main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* 页面区块默认隐藏 */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* 广告横幅区域 */
+        .banner-area {
+            margin-bottom: 20px;
+        }
+
+        .banner-item {
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        .banner-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .banner-item img {
+            width: 100%;
+            height: 120px;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* 搜索区域 */
+        .search-bar {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-form input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-form select {
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            background-color: #fff;
+            outline: none;
+        }
+
+        .search-form button {
+            padding: 10px 30px;
+            background-color: #e67e22;
+            color: #fff;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .search-form button:hover {
+            background-color: #d35400;
+        }
+
+        /* 板块通用标题 */
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 0;
+            border-bottom: 2px solid #2c5aa0;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title a {
+            font-size: 13px;
+            color: #666;
+            text-decoration: none;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .section-title a:hover {
+            color: #2c5aa0;
+        }
+
+        /* 职位卡片通用样式 */
+        .job-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .job-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 18px;
+            display: flex;
+            gap: 20px;
+            cursor: pointer;
+        }
+
+        .job-card:hover {
+            border-color: #2c5aa0;
+            background-color: #f9fbff;
+        }
+
+        .job-image {
+            width: 160px;
+            height: 120px;
+            flex-shrink: 0;
+            background-color: #eee;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        .job-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .job-content {
+            flex: 1;
+        }
+
+        .job-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .job-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+
+        .job-salary {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e67e22;
+        }
+
+        .job-company {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .job-info {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .job-info span {
+            margin-right: 15px;
+        }
+
+        .job-desc {
+            font-size: 13px;
+            color: #777;
+            line-height: 1.5;
+        }
+
+        .job-tags {
+            margin-top: 8px;
+        }
+
+        .job-tags span {
+            display: inline-block;
+            padding: 2px 8px;
+            background-color: #f0f0f0;
+            color: #666;
+            font-size: 12px;
+            margin-right: 6px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .ended-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            background-color: #999;
+            color: #fff;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        /* 企业列表样式 */
+        .company-list {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .company-card {
+            flex: 1;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .company-card:hover {
+            border-color: #2c5aa0;
+            background-color: #f9fbff;
+        }
+
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background-color: #f0f0f0;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+        }
+
+        .company-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .company-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .company-info {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .company-job-count {
+            font-size: 13px;
+            color: #e67e22;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* 首页欢迎提示 */
+        .home-tip {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* 职位详情弹窗 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal {
+            background-color: #fff;
+            width: 600px;
+            max-width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+        }
+
+        .modal-header {
+            background-color: #2c5aa0;
+            color: #fff;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 16px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .detail-salary {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e67e22;
+            margin-bottom: 15px;
+        }
+
+        .detail-row {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .detail-row label {
+            color: #666;
+            display: inline-block;
+            width: 80px;
+        }
+
+        .detail-section {
+            margin-top: 20px;
+        }
+
+        .detail-section h4 {
+            font-size: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .detail-section p {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .end-notice {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #856404;
+        }
+
+        /* 底部 */
+        .footer {
+            background-color: #333;
+            color: #aaa;
+            padding: 25px 20px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部头部 -->
+    <div class="header">
+        <div class="header-top">
+            <div class="logo-area">
+                <img src="/game/pic/08logo.png" alt="聘查查Logo">
+                <h1>聘查查</h1>
+            </div>
+            <div class="user-actions">
+                <a href="javascript:void(0)">求职者登录</a>
+                <a href="javascript:void(0)">企业登录</a>
+                <a href="javascript:void(0)">注册账号</a>
+                <a href="javascript:void(0)">APP下载</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="nav">
+        <div class="nav-inner">
+            <a class="active" onclick="switchPage('home')">首页</a>
+            <a onclick="switchPage('job')">找工作</a>
+            <a onclick="switchPage('company')">找企业</a>
+            <a href="javascript:void(0)">招聘会</a>
+            <a href="javascript:void(0)">职场资讯</a>
+            <a onclick="switchPage('parttime')">兼职招聘</a>
+            <a href="javascript:void(0)">校园招聘</a>
+            <a href="javascript:void(0)">人才测评</a>
+            <a href="javascript:void(0)">关于我们</a>
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="main">
+        <!-- 首页内容：广告+搜索 -->
+        <div id="page-home" class="page-section active">
+            <!-- 广告横幅区域 -->
+            <div class="banner-area">
+                <div class="banner-item">
+                    <img src="/game/pic/ad1.png" alt="招聘广告位1">
+                </div>
+                <div class="banner-item">
+                    <img src="/game/pic/ad2.png" alt="招聘广告位2">
+                </div>
+                <div class="banner-item">
+                    <img src="/game/pic/ad3.png" alt="招聘广告位3">
+                </div>
+            </div>
+
+            <!-- 搜索栏 -->
+            <div class="search-bar">
+                <div class="search-form">
+                    <input type="text" placeholder="请输入职位名称、公司名称或关键词">
+                    <select>
+                        <option>全部城市</option>
+                        <option>北京</option>
+                        <option>上海</option>
+                        <option>广州</option>
+                        <option>深圳</option>
+                        <option>杭州</option>
+                        <option>成都</option>
+                    </select>
+                    <select>
+                        <option>全部职位类别</option>
+                        <option>技术开发</option>
+                        <option>销售业务</option>
+                        <option>行政人事</option>
+                        <option>财务会计</option>
+                        <option>普工/技工</option>
+                    </select>
+                    <button type="button">搜索职位</button>
+                </div>
+            </div>
+
+            <div class="home-tip">
+                欢迎使用聘查查招聘平台，请上方搜索职位，或点击导航栏浏览对应分类
+            </div>
+        </div>
+
+        <!-- 找工作页面 -->
+        <div id="page-job" class="page-section">
+            <!-- 搜索栏 -->
+            <div class="search-bar">
+                <div class="search-form">
+                    <input type="text" placeholder="请输入职位名称、公司名称或关键词">
+                    <select>
+                        <option>全部城市</option>
+                        <option>北京</option>
+                        <option>上海</option>
+                        <option>广州</option>
+                        <option>深圳</option>
+                        <option>杭州</option>
+                        <option>成都</option>
+                    </select>
+                    <select>
+                        <option>全部职位类别</option>
+                        <option>技术开发</option>
+                        <option>销售业务</option>
+                        <option>行政人事</option>
+                        <option>财务会计</option>
+                        <option>普工/技工</option>
+                    </select>
+                    <button type="button">搜索职位</button>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <span>全职热门职位</span>
+                <a href="javascript:void(0)">查看更多 &gt;</a>
+            </div>
+            <div class="job-list">
+                <!-- 全职职位1 -->
+                <div class="job-card" onclick="showJobDetail(1)">
+                    <div class="job-image">
+                        <img src="https://picsum.photos/seed/java-office/160/120" alt="Java开发办公场景">
+                    </div>
+                    <div class="job-content">
+                        <div class="job-title-row">
+                            <span class="job-title">Java后端开发工程师</span>
+                            <span class="job-salary">8000-12000元/月</span>
+                        </div>
+                        <div class="job-company">恒信科技有限公司</div>
+                        <div class="job-info">
+                            <span>地点：高新区软件产业园</span>
+                            <span>经验：1-3年</span>
+                            <span>学历：本科及以上</span>
+                            <span>招3人</span>
+                        </div>
+                        <div class="job-desc">
+                            负责公司业务系统后端开发与维护，使用SpringBoot框架，参与需求分析与技术方案设计，有互联网项目开发经验优先。
+                        </div>
+                        <div class="job-tags">
+                            <span>五险一金</span>
+                            <span>年终奖金</span>
+                            <span>技术氛围好</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 全职职位2 -->
+                <div class="job-card" onclick="showJobDetail(2)">
+                    <div class="job-image">
+                        <img src="https://picsum.photos/seed/finance-desk/160/120" alt="财务办公场景">
+                    </div>
+                    <div class="job-content">
+                        <div class="job-title-row">
+                            <span class="job-title">财务会计</span>
+                            <span class="job-salary">4500-6000元/月</span>
+                        </div>
+                        <div class="job-company">华贸进出口有限公司</div>
+                        <div class="job-info">
+                            <span>地点：市中心国贸大厦</span>
+                            <span>经验：2年以上</span>
+                            <span>学历：大专及以上</span>
+                            <span>招1人</span>
+                        </div>
+                        <div class="job-desc">
+                            负责公司日常账务处理、纳税申报、成本核算、报表编制等工作，有进出口行业经验、持有会计证者优先。
+                        </div>
+                        <div class="job-tags">
+                            <span>双休</span>
+                            <span>社保齐全</span>
+                            <span>节日福利</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 全职职位3 -->
+                <div class="job-card" onclick="showJobDetail(3)">
+                    <div class="job-image">
+                        <img src="https://picsum.photos/seed/business-team/160/120" alt="销售团队场景">
+                    </div>
+                    <div class="job-content">
+                        <div class="job-title-row">
+                            <span class="job-title">区域销售经理</span>
+                            <span class="job-salary">7000-15000元/月</span>
+                        </div>
+                        <div class="job-company">锐科电子科技有限公司</div>
+                        <div class="job-info">
+                            <span>地点：经开区工业园</span>
+                            <span>经验：3年以上</span>
+                            <span>学历：大专及以上</span>
+                            <span>招2人</span>
+                        </div>
+                        <div class="job-desc">
+                            负责所辖区域的客户开发与维护，完成销售指标，拓展渠道资源，有工业品销售经验、自带客户资源者优先。
+                        </div>
+                        <div class="job-tags">
+                            <span>高提成</span>
+                            <span>出差补贴</span>
+                            <span>晋升空间大</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 找企业页面 -->
+        <div id="page-company" class="page-section">
+            <!-- 搜索栏 -->
+            <div class="search-bar">
+                <div class="search-form">
+                    <input type="text" placeholder="请输入企业名称、行业关键词">
+                    <select>
+                        <option>全部行业</option>
+                        <option>互联网/IT</option>
+                        <option>贸易/进出口</option>
+                        <option>建筑工程</option>
+                        <option>制造业</option>
+                        <option>服务业</option>
+                    </select>
+                    <select>
+                        <option>企业规模</option>
+                        <option>20人以下</option>
+                        <option>20-99人</option>
+                        <option>100-499人</option>
+                        <option>500人以上</option>
+                    </select>
+                    <button type="button">搜索企业</button>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <span>知名在招企业</span>
+                <a href="javascript:void(0)">查看更多企业 &gt;</a>
+            </div>
+            <div class="company-list">
+                <div class="company-card">
+                    <div class="company-logo">
+                        <img src="https://picsum.photos/seed/tech-company/80/80" alt="恒信科技LOGO">
+                    </div>
+                    <div class="company-name">恒信科技有限公司</div>
+                    <div class="company-info">行业：互联网/IT</div>
+                    <div class="company-info">规模：100-200人</div>
+                    <div class="company-job-count">在招职位：15个</div>
+                </div>
+                <div class="company-card">
+                    <div class="company-logo">
+                        <img src="https://picsum.photos/seed/trade-company/80/80" alt="华贸进出口LOGO">
+                    </div>
+                    <div class="company-name">华贸进出口有限公司</div>
+                    <div class="company-info">行业：贸易/进出口</div>
+                    <div class="company-info">规模：50-100人</div>
+                    <div class="company-job-count">在招职位：9个</div>
+                </div>
+                <div class="company-card">
+                    <div class="company-logo">
+                        <img src="https://picsum.photos/seed/build-company/80/80" alt="永安建筑LOGO">
+                    </div>
+                    <div class="company-name">永安建筑工程集团</div>
+                    <div class="company-info">行业：建筑工程</div>
+                    <div class="company-info">规模：500人以上</div>
+                    <div class="company-job-count">在招职位：28个</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 兼职招聘页面 -->
+        <div id="page-parttime" class="page-section">
+            <!-- 搜索栏 -->
+            <div class="search-bar">
+                <div class="search-form">
+                    <input type="text" placeholder="请输入兼职关键词">
+                    <select>
+                        <option>全部区域</option>
+                        <option>市中心</option>
+                        <option>高新区</option>
+                        <option>经开区</option>
+                        <option>周边区县</option>
+                    </select>
+                    <select>
+                        <option>结算方式</option>
+                        <option>日结</option>
+                        <option>周结</option>
+                        <option>月结</option>
+                    </select>
+                    <button type="button">搜索兼职</button>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <span>最新兼职岗位</span>
+                <a href="javascript:void(0)">查看更多兼职 &gt;</a>
+            </div>
+            <div class="job-list">
+                <!-- 兼职1：传单派发 -->
+                <div class="job-card" onclick="showJobDetail(4)">
+                    <div class="job-image">
+                        <img src="https://picsum.photos/seed/street-flyer/160/120" alt="商圈派单场景">
+                    </div>
+                    <div class="job-content">
+                        <div class="job-title-row">
+                            <span class="job-title">商圈传单派发员</span>
+                            <span class="job-salary">120元/天 日结</span>
+                        </div>
+                        <div class="job-company">启航文化传媒有限公司</div>
+                        <div class="job-info">
+                            <span>地点：市中心各大商圈</span>
+                            <span>经验：不限</span>
+                            <span>学历：不限</span>
+                            <span>招10人</span>
+                        </div>
+                        <div class="job-desc">
+                            负责在商圈、步行街派发宣传单页，工作简单易上手，可按天排班，当天结算工资，学生、上班族均可兼职。
+                        </div>
+                        <div class="job-tags">
+                            <span>日结</span>
+                            <span>时间灵活</span>
+                            <span>无需经验</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 兼职2：家教老师 -->
+                <div class="job-card" onclick="showJobDetail(5)">
+                    <div class="job-image">
+                        <img src="https://picsum.photos/seed/tutor-study/160/120" alt="家教辅导场景">
+                    </div>
+                    <div class="job-content">
+                        <div class="job-title-row">
+                            <span class="job-title">中小学各科家教老师</span>
+                            <span class="job-salary">80-150元/小时</span>
+                        </div>
+                        <div class="job-company">优学教育辅导中心</div>
+                        <div class="job-info">
+                            <span>地点：上门/线上均可</span>
+                            <span>经验：不限</span>
+                            <span>学历：大专及以上</span>
+                            <span>招8人</span>
+                        </div>
+                        <div class="job-desc">
+                            负责中小学语文、数学、英语等科目一对一辅导，根据学生情况制定学习计划，周末及晚上上课，师范生优先。
+                        </div>
+                        <div class="job-tags">
+                            <span>周末兼职</span>
+                            <span>时间自由</span>
+                            <span>薪资高</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 兼职3：外卖骑手 -->
+                <div class="job-card" onclick="showJobDetail(6)">
+                    <div class="job-image">
+                        <img src="https://picsum.photos/seed/delivery-bike/160/120" alt="外卖配送场景">
+                    </div>
+                    <div class="job-content">
+                        <div class="job-title-row">
+                            <span class="job-title">外卖骑手兼职</span>
+                            <span class="job-salary">200-350元/天</span>
+                        </div>
+                        <div class="job-company">同城配送服务站</div>
+                        <div class="job-info">
+                            <span>地点：全城就近分配</span>
+                            <span>经验：不限</span>
+                            <span>学历：不限</span>
+                            <span>招20人</span>
+                        </div>
+                        <div class="job-desc">
+                            负责外卖订单配送，系统自动派单，时间自由安排，多劳多得，自带电动车优先，无车可提供租车渠道，工资周结。
+                        </div>
+                        <div class="job-tags">
+                            <span>时间自由</span>
+                            <span>多劳多得</span>
+                            <span>周结工资</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 兼职4：工地搬运（最底部） -->
+                <div class="job-card" onclick="showJobDetail(7)">
+                    <div class="job-image">
+                        <img src="https://picsum.photos/seed/construction-site/160/120" alt="工地现场场景">
+                    </div>
+                    <div class="job-content">
+                        <div class="job-title-row">
+                            <div>
+                                <span class="job-title">工地搬运工/装卸工</span>
+                                <span class="ended-tag">招聘已结束</span>
+                            </div>
+                            <span class="job-salary">5000-7000元/月</span>
+                        </div>
+                        <div class="job-company">永安建筑工程有限公司</div>
+                        <div class="job-info">
+                            <span>地点：永和路88号建筑工地</span>
+                            <span>经验：不限</span>
+                            <span>学历：不限</span>
+                            <span>招20人</span>
+                        </div>
+                        <div class="job-desc">
+                            负责工地材料搬运、装卸货物、现场清理等体力工作，能吃苦耐劳，身体健康，年龄18-50岁，包吃住，工资月结。
+                        </div>
+                        <div class="job-tags">
+                            <span>包吃住</span>
+                            <span>无需经验</span>
+                            <span>体力活</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 职位详情弹窗 -->
+    <div class="modal-overlay" id="jobModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">职位详情</h3>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 内容由JS动态填充 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <div class="footer">
+        <div class="footer-links">
+            <a href="javascript:void(0)">关于聘查查</a>
+            <a href="javascript:void(0)">联系我们</a>
+            <a href="javascript:void(0)">加入我们</a>
+            <a href="javascript:void(0)">用户协议</a>
+            <a href="javascript:void(0)">隐私政策</a>
+            <a href="javascript:void(0)">帮助中心</a>
+            <a href="javascript:void(0)">意见反馈</a>
+        </div>
+        <div>Copyright © 2024 聘查查招聘网 版权所有 | 本站为模拟演示网站</div>
+    </div>
+
+    <script>
+        // 页面切换功能
+        function switchPage(pageName) {
+            // 隐藏所有页面区块
+            document.querySelectorAll('.page-section').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            
+            // 显示目标页面
+            document.getElementById('page-' + pageName).classList.add('active');
+            
+            // 切换导航active状态
+            document.querySelectorAll('.nav-inner a').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            // 给对应导航项加active
+            event.target.classList.add('active');
+            
+            // 滚动到顶部
+            window.scrollTo(0, 0);
+        }
+
+        // 所有职位详情数据
+        var jobDetails = {
+            // 全职职位1
+            1: {
+                title: "Java后端开发工程师",
+                salary: "8000-12000元/月",
+                company: "恒信科技有限公司",
+                location: "高新区软件产业园B座3层",
+                experience: "1-3年",
+                education: "本科及以上",
+                number: "3人",
+                publishDate: "2024-06-20",
+                endDate: "招满即止",
+                duties: [
+                    "负责公司业务系统后端功能的设计、开发与维护",
+                    "参与需求评审，输出技术方案与接口文档",
+                    "优化系统性能，保障服务稳定运行",
+                    "配合前端团队完成接口联调与问题排查"
+                ],
+                requirements: [
+                    "本科及以上学历，计算机相关专业",
+                    "1年以上Java开发经验，熟练使用SpringBoot框架",
+                    "熟悉MySQL、Redis等常用数据库",
+                    "有良好的代码规范和问题排查能力"
+                ],
+                welfare: [
+                    "入职缴纳五险一金",
+                    "年底13薪+项目奖金",
+                    "带薪年假、病假",
+                    "定期技术分享与培训",
+                    "免费下午茶、节日福利"
+                ],
+                ended: false
+            },
+            // 全职职位2
+            2: {
+                title: "财务会计",
+                salary: "4500-6000元/月",
+                company: "华贸进出口有限公司",
+                location: "市中心国贸大厦12楼",
+                experience: "2年以上",
+                education: "大专及以上",
+                number: "1人",
+                publishDate: "2024-06-18",
+                endDate: "招满即止",
+                duties: [
+                    "负责公司日常账务处理，凭证录入与审核",
+                    "月度、季度、年度财务报表编制",
+                    "纳税申报、发票管理与税务相关工作",
+                    "成本核算与往来账目核对"
+                ],
+                requirements: [
+                    "大专及以上学历，财务会计相关专业",
+                    "2年以上会计工作经验，持有会计从业资格证",
+                    "熟悉财务软件和Office办公软件",
+                    "工作严谨细致，有责任心"
+                ],
+                welfare: [
+                    "五险一金",
+                    "周末双休，法定节假日正常休息",
+                    "带薪年假、婚假、产假",
+                    "节日福利、年终奖金",
+                    "定期员工体检"
+                ],
+                ended: false
+            },
+            // 全职职位3
+            3: {
+                title: "区域销售经理",
+                salary: "7000-15000元/月（底薪+提成）",
+                company: "锐科电子科技有限公司",
+                location: "经开区工业园A区",
+                experience: "3年以上",
+                education: "大专及以上",
+                number: "2人",
+                publishDate: "2024-06-15",
+                endDate: "长期招聘",
+                duties: [
+                    "负责所辖区域的市场开发与客户维护",
+                    "完成公司下达的月度、年度销售指标",
+                    "拓展经销商渠道，建立合作关系",
+                    "收集市场信息与竞品动态，及时反馈"
+                ],
+                requirements: [
+                    "大专及以上学历，市场营销相关专业优先",
+                    "3年以上工业品销售经验，有客户资源优先",
+                    "具备良好的谈判能力和沟通技巧",
+                    "能适应短期出差，有团队管理经验优先"
+                ],
+                welfare: [
+                    "无责任底薪5000+高提成+奖金",
+                    "出差实报实销+出差补贴",
+                    "五险一金，节日福利",
+                    "年度旅游，团建活动",
+                    "公平透明的晋升机制"
+                ],
+                ended: false
+            },
+            // 兼职1
+            4: {
+                title: "商圈传单派发员",
+                salary: "120元/天 日结",
+                company: "启航文化传媒有限公司",
+                location: "市中心各大商圈就近安排",
+                experience: "不限",
+                education: "不限",
+                number: "10人",
+                publishDate: "2024-06-25",
+                endDate: "长期招聘",
+                duties: [
+                    "在指定商圈、步行街派发宣传单页",
+                    "主动向过往行人介绍活动内容",
+                    "保持派发区域整洁，不随意丢弃传单",
+                    "服从现场负责人的工作安排"
+                ],
+                requirements: [
+                    "年龄16-50岁，男女不限",
+                    "性格开朗，敢于主动沟通",
+                    "工作认真负责，不偷懒摸鱼",
+                    "学生、上班族均可报名"
+                ],
+                welfare: [
+                    "工资日结，当天工作结束即结算",
+                    "可按天排班，时间灵活",
+                    "提供工作马甲和饮用水",
+                    "表现优异者可长期合作"
+                ],
+                ended: false
+            },
+            // 兼职2
+            5: {
+                title: "中小学各科家教老师",
+                salary: "80-150元/小时",
+                company: "优学教育辅导中心",
+                location: "学生家中或线上授课",
+                experience: "不限",
+                education: "大专及以上",
+                number: "8人",
+                publishDate: "2024-06-22",
+                endDate: "长期招聘",
+                duties: [
+                    "一对一辅导中小学学生对应科目",
+                    "根据学生情况制定个性化辅导方案",
+                    "批改作业，讲解知识点，答疑解惑",
+                    "定期与家长沟通学生学习情况"
+                ],
+                requirements: [
+                    "大专及以上学历，专业不限",
+                    "对应科目成绩优异，有家教经验优先",
+                    "普通话标准，表达清晰",
+                    "耐心负责，善于和学生沟通"
+                ],
+                welfare: [
+                    "课时费高，按时结算",
+                    "时间自由，可根据自己时间排课",
+                    "提供专业培训和备课资料",
+                    "长期稳定生源"
+                ],
+                ended: false
+            },
+            // 兼职3
+            6: {
+                title: "外卖骑手兼职",
+                salary: "200-350元/天",
+                company: "同城配送服务站",
+                location: "全城就近分配站点",
+                experience: "不限",
+                education: "不限",
+                number: "20人",
+                publishDate: "2024-06-26",
+                endDate: "长期招聘",
+                duties: [
+                    "按照系统派单完成外卖订单配送",
+                    "准时取餐、送餐，保证餐品完好",
+                    "遵守交通规则，安全骑行",
+                    "保持电动车整洁，维护个人形象"
+                ],
+                requirements: [
+                    "年龄18-50岁，身体健康",
+                    "会骑电动车，熟悉本地路况优先",
+                    "有无经验均可，新手有人带",
+                    "无犯罪记录，品行端正"
+                ],
+                welfare: [
+                    "多劳多得，上不封顶",
+                    "时间自由，想跑就跑",
+                    "工资周结，提现方便",
+                    "无车可提供租车渠道",
+                    "雨天、夜间有额外补贴"
+                ],
+                ended: false
+            },
+            // 兼职7：工地搬运
+            7: {
+                title: "工地搬运工/装卸工",
+                salary: "5000-7000元/月",
+                company: "永安建筑工程有限公司",
+                location: "永和路88号建筑工地",
+                experience: "不限",
+                education: "不限",
+                number: "20人",
+                publishDate: "2024-03-01",
+                endDate: "2024-03-31",
+                duties: [
+                    "负责工地建材、工具等物资的搬运和装卸工作",
+                    "配合施工队伍进行现场材料转运和堆放整理",
+                    "保持作业区域整洁，协助工地日常清理工作",
+                    "服从现场管理人员安排，完成其他体力类工作"
+                ],
+                requirements: [
+                    "年龄18-50周岁，身体健康，能吃苦耐劳",
+                    "无学历要求，有无经验均可",
+                    "品行端正，无不良记录，有团队合作精神",
+                    "能适应工地环境和户外作业"
+                ],
+                welfare: [
+                    "包吃住，宿舍有空调热水器",
+                    "工资月结，从不拖欠",
+                    "加班另算加班费，法定节假日三倍工资",
+                    "提供安全帽、手套等劳保用品"
+                ],
+                ended: true
+            }
+        };
+
+        function showJobDetail(id) {
+            var job = jobDetails[id];
+            if (!job) return;
+
+            var body = document.getElementById('modalBody');
+            var title = document.getElementById('modalTitle');
+            
+            title.textContent = job.title;
+            
+            var html = '';
+            html += '<div class="detail-salary">' + job.salary + '</div>';
+            html += '<div class="detail-row"><label>公司：</label>' + job.company + '</div>';
+            html += '<div class="detail-row"><label>地点：</label>' + job.location + '</div>';
+            html += '<div class="detail-row"><label>经验：</label>' + job.experience + '</div>';
+            html += '<div class="detail-row"><label>学历：</label>' + job.education + '</div>';
+            html += '<div class="detail-row"><label>招聘人数：</label>' + job.number + '</div>';
+            html += '<div class="detail-row"><label>发布日期：</label>' + job.publishDate + '</div>';
+            
+            html += '<div class="detail-section"><h4>岗位职责</h4>';
+            html += '<p>';
+            job.duties.forEach(function(item, index) {
+                html += (index + 1) + '、' + item + '<br>';
+            });
+            html += '</p></div>';
+            
+            html += '<div class="detail-section"><h4>任职要求</h4>';
+            html += '<p>';
+            job.requirements.forEach(function(item, index) {
+                html += (index + 1) + '、' + item + '<br>';
+            });
+            html += '</p></div>';
+            
+            html += '<div class="detail-section"><h4>福利待遇</h4>';
+            html += '<p>';
+            job.welfare.forEach(function(item) {
+                html += '• ' + item + '<br>';
+            });
+            html += '</p></div>';
+            
+            if (job.ended) {
+                html += '<div class="end-notice">';
+                html += '⚠ 该招聘已于 ' + job.endDate + ' 结束，当前不再接收新的简历投递。';
+                html += '<br>您可以浏览其他正在招聘中的职位，感谢您的关注。';
+                html += '</div>';
+            }
+            
+            body.innerHTML = html;
+            document.getElementById('jobModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('jobModal').classList.remove('active');
+        }
+
+        // 点击遮罩关闭弹窗
+        document.getElementById('jobModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
