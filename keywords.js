@@ -30,6 +30,12 @@ var keywordList = [
 
     },
     {
+        keyword: "宁达",
+        title: "关于表彰宁达建筑劳务有限公司为我市模范企业的通告",
+        url: "/game/08laowu.html",
+
+    },
+    {
         keyword: "夏季治安",
         title: "公安部部署夏季治安打击整治行动 切实维护社会治安稳定",
         url: "#",
