@@ -24,10 +24,10 @@ var keywordList = [
 
     },
     {
-        keyword: "电信诈骗",
-        title: "公安部召开新闻发布会通报当前电信网络诈骗形势",
-        url: "#",
-        date: "06-22"
+        keyword: "宁达建筑劳务有限公司",
+        title: "关于表彰宁达建筑劳务有限公司为我市模范企业的通告",
+        url: "/game/08laowu.html",
+
     },
     {
         keyword: "夏季治安",
