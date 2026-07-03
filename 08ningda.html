@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宁达建筑劳务有限公司 - 老板直达</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        body {
+            background-color: #f5f6f8;
+            padding-bottom: 80px;
+        }
+        /* 电脑端宽度限制核心样式 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #f5f6f8;
+            min-height: 100vh;
+        }
+        /* 顶部导航栏 */
+        .header-bar {
+            background: #225699;
+            color: white;
+            padding: 14px 16px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+        .header-bar h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .header-bar p {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+        /* 老板信息卡片 */
+        .boss-card {
+            background: #fff;
+            margin: 16px;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            gap: 14px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+        .boss-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #3474c9;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .boss-info h2 {
+            font-size: 17px;
+            color: #222;
+        }
+        .boss-info span {
+            background: #ff4d4f;
+            color: #fff;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 6px;
+        }
+        .boss-info p {
+            font-size: 13px;
+            color: #666;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+        /* 分区标题 */
+        .section-title {
+            margin: 20px 16px 10px;
+            font-size: 16px;
+            color: #225699;
+            font-weight: 600;
+            border-left: 4px solid #225699;
+            padding-left: 10px;
+        }
+        /* 信息流通用容器 */
+        .feed-wrap {
+            margin: 0 16px;
+        }
+        /* 单条帖子卡片 */
+        .feed-item {
+            background: #fff;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+        /* 用户发言 */
+        .user-comment {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #99aabb;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+        .comment-box {
+            flex: 1;
+        }
+        .comment-name {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+        .comment-time {
+            font-size: 11px;
+            color: #999;
+            margin-left: 8px;
+        }
+        .comment-text {
+            margin-top: 6px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #444;
+            background: #f5f7fa;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        /* 老板回复 */
+        .boss-reply {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            padding-left: 10px;
+            border-left: 2px solid #3474c9;
+        }
+        .boss-reply .comment-text {
+            background: #e8f1fc;
+        }
+        /* 老板主动发帖 */
+        .boss-publish .comment-box .comment-name {
+            color: #225699;
+        }
+        /* 底部输入框模拟 */
+        .input-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            padding: 10px 16px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+            z-index: 98;
+        }
+        /* 适配电脑端底部输入框，跟随容器宽度居中 */
+        @media (min-width: 1200px) {
+            .input-footer {
+                max-width: 1200px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        .input-footer input {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 8px 14px;
+            outline: none;
+        }
+        .input-footer button {
+            background: #225699;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 18px;
+            cursor: pointer;
+        }
+
+        /* ========== 新增加密弹窗样式（已修复输入框溢出） ========== */
+        .mask-layer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+        }
+        .verify-modal {
+            width: 90%;
+            max-width: 420px;
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .verify-modal h3 {
+            color: #225699;
+            text-align: center;
+            margin-bottom: 16px;
+            font-size: 18px;
+        }
+        .tip-text {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        /* 修复：强制同行、缩小间距、允许输入框压缩 */
+        .input-group {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+            flex-wrap: nowrap;
+        }
+        .input-group input {
+            flex: 1;
+            min-width: 0;
+            padding: 8px 2px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 13px;
+        }
+        .error-tip {
+            color: #f53f3f;
+            font-size: 13px;
+            margin-bottom: 12px;
+            display: none;
+            text-align: center;
+        }
+        .modal-btn-box {
+            display: flex;
+            gap: 10px;
+        }
+        .modal-cancel {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #f6f6f6;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .modal-confirm {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: #225699;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .lock-btn {
+            margin-top: 10px;
+            padding: 9px 16px;
+            background: #225699;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- 外层容器限制电脑最大宽度 -->
+    <div class="container">
+        <!-- 顶部标题栏 -->
+        <div class="header-bar">
+            <h1>宁达建筑劳务有限公司 · 老板直达</h1>
+            <p>直接对接印老板，招工求职在线沟通</p>
+        </div>
+
+        <!-- 印老板个人卡片 -->
+        <div class="boss-card">
+            <div class="boss-avatar">印</div>
+            <div class="boss-info">
+                <h2>印老板 <span>企业负责人</span></h2>
+                <p>常年招工，直接留言</p>
+            </div>
+        </div>
+
+        <!-- 第一板块：求职者提问，老板回复 -->
+        <div class="section-title">用户留言</div>
+        <div class="feed-wrap">
+            <!-- 对话1 -->
+            <div class="feed-item">
+                <div class="user-comment">
+                    <div class="user-avatar">U</div>
+                    <div class="comment-box">
+                        <div class="comment-name">用户s7d2k9 <span class="comment-time">今天 08:12</span></div>
+                        <div class="comment-text">印老板你好，大工一天多少钱，包吃住吗？工期多久？</div>
+                    </div>
+                </div>
+                <div class="boss-reply">
+                    <div class="boss-avatar" style="width:36px;height:36px;font-size:16px;">印</div>
+                    <div class="comment-box">
+                        <div class="comment-name">印老板 <span class="comment-time">今天 08:25</span></div>
+                        <div class="comment-text">价钱可以看我们的招聘信息，包吃住。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 对话2 -->
+            <div class="feed-item">
+                <div class="user-comment">
+                    <div class="user-avatar">U</div>
+                    <div class="comment-box">
+                        <div class="comment-name">用户g5p8z3 <span class="comment-time">今天 09:05</span></div>
+                        <div class="comment-text">老板，我带5个人班组，现在工地缺钢筋班组吗？月结还是完工结账？</div>
+                    </div>
+                </div>
+                <div class="boss-reply">
+                    <div class="boss-avatar" style="width:36px;height:36px;font-size:16px;">印</div>
+                    <div class="comment-box">
+                        <div class="comment-name">印老板 <span class="comment-time">今天 09:18</span></div>
+                        <div class="comment-text">班组优先，每月25号结工资。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 对话3 -->
+            <div class="feed-item">
+                <div class="user-comment">
+                    <div class="user-avatar">U</div>
+                    <div class="comment-box">
+                        <div class="comment-name">用户x2n7c4 <span class="comment-time">今天 10:33</span></div>
+                        <div class="comment-text">印老板，小工薪资多少，有没有学徒岗位？</div>
+                    </div>
+                </div>
+                <div class="boss-reply">
+                    <div class="boss-avatar" style="width:36px;height:36px;font-size:16px;">印</div>
+                    <div class="comment-box">
+                        <div class="comment-name">印老板 <span class="comment-time">今天 10:46</span></div>
+                        <div class="comment-text">学徒可以带，小工220一天。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第二板块：印老板主动发帖征集需求，工友刷屏留言 -->
+        <div class="section-title">老板留言</div>
+        <div class="feed-wrap">
+            <!-- 老板发帖 -->
+            <div class="feed-item boss-publish">
+                <div class="user-comment">
+                    <div class="boss-avatar">印</div>
+                    <div class="comment-box">
+                        <div class="comment-name">印老板 <span class="comment-time">今天 11:20</span></div>
+                        <div class="comment-text">各位工友大家好！公司在宁州市新增多处工地，现在统计大家需求，对工地情况有什么建议或要求，我统一安排</div>
+                    </div>
+                </div>
+
+                <!-- 工友留言1 -->
+                <div class="user-comment" style="margin-top:16px;">
+                    <div class="user-avatar">U</div>
+                    <div class="comment-box">
+                        <div class="comment-name">用户r9t5m1 <span class="comment-time">11:22</span></div>
+                        <div class="comment-text">单人架子工，有证。</div>
+                    </div>
+                </div>
+                <!-- 工友留言2 -->
+                <div class="user-comment">
+                    <div class="user-avatar">U</div>
+                    <div class="comment-box">
+                        <div class="comment-name">用户b3h6s8 <span class="comment-time">11:23</span></div>
+                        <div class="comment-text">水电两人小班组，做长期</div>
+                    </div>
+                </div>
+                <!-- 工友留言3 -->
+                <div class="user-comment">
+                    <div class="user-avatar">U</div>
+                    <div class="comment-box">
+                        <div class="comment-name">用户e7w2k5 <span class="comment-time">11:25</span></div>
+                        <div class="comment-text">能不能每天给一个可以让我们自己分配的休息时间</div>
+                    </div>
+                </div>
+                <!-- 工友留言4 -->
+                <div class="user-comment">
+                    <div class="user-avatar">U</div>
+                    <div class="comment-box">
+                        <div class="comment-name">用户p4j9d2 <span class="comment-time">11:26</span></div>
+                        <div class="comment-text">带8人木工班组。</div>
+                    </div>
+                </div>
+                <!-- 工友留言5 -->
+                <div class="user-comment">
+                    <div class="user-avatar">U</div>
+                    <div class="comment-box">
+                        <div class="comment-name">用户v1f6n7 <span class="comment-time">11:28</span></div>
+                        <div class="comment-text">油漆工，工资日结月结都可以商量！</div>
+                    </div>
+                </div>
+                <!-- 工友留言6 -->
+                <div class="user-comment">
+                    <div class="user-avatar">U</div>
+                    <div class="comment-box">
+                        <div class="comment-name">用户q8c3r5 <span class="comment-time">11:30</span></div>
+                        <div class="comment-text">塔吊持证，要求工地包吃住，长期岗位！</div>
+                    </div>
+                </div>
+                <!-- 工友留言7 -->
+                <div class="user-comment">
+                    <div class="user-avatar">U</div>
+                    <div class="comment-box">
+                        <div class="comment-name">用户l2z7g9 <span class="comment-time">11:32</span></div>
+                        <div class="comment-text">专业防水班组4人，大量地下室屋面活都能做。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== 新增板块：最新加密项目公告 ========== -->
+        <div class="section-title">最新在建项目公告（加密查看）</div>
+        <div class="feed-wrap">
+            <div class="feed-item boss-publish">
+                <div class="user-comment">
+                    <div class="boss-avatar">印</div>
+                    <div class="comment-box">
+                        <div class="comment-name">印老板 <span class="comment-time">今天 14:10</span></div>
+                        <div class="comment-text">
+                            公司新增大型综合建筑项目，包含土建、装修、配套设施多类岗位，缺口大量成熟班组与技工，有意向查看完整薪资、工期、地点等详细信息请点击下方按钮。<br>
+                           
+                        </div>
+                        <button class="lock-btn" id="openVerifyBtn">查看完整项目详情</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 新增验证弹窗遮罩层 ========== -->
+    <div class="mask-layer" id="verifyMask">
+        <div class="verify-modal">
+            <h3>加密验证 </h3>
+            <p class="tip-text">请按顺序依次输入公司三高准则。</p>
+            <div class="input-group">
+                <input type="text" id="input1" placeholder="第一词">
+                <input type="text" id="input2" placeholder="第二词">
+                <input type="text" id="input3" placeholder="第三词">
+            </div>
+            <p class="error-tip" id="errorMsg">输入顺序或文字错误，请重新填写！</p>
+            <div class="modal-btn-box">
+                <button class="modal-cancel" id="closeMaskBtn">取消</button>
+                <button class="modal-confirm" id="submitVerifyBtn">确定验证</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部模拟留言输入框 -->
+    <div class="input-footer">
+        <input type="text" placeholder="输入你的求职需求，直接发给印老板...">
+        <button>发送留言</button>
+    </div>
+
+    <!-- JS验证逻辑 -->
+    <script>
+        // 获取DOM元素
+        const mask = document.getElementById('verifyMask');
+        const openBtn = document.getElementById('openVerifyBtn');
+        const closeBtn = document.getElementById('closeMaskBtn');
+        const submitBtn = document.getElementById('submitVerifyBtn');
+        const errTip = document.getElementById('errorMsg');
+        const i1 = document.getElementById('input1');
+        const i2 = document.getElementById('input2');
+        const i3 = document.getElementById('input3');
+
+        // 打开弹窗
+        openBtn.onclick = () => {
+            mask.style.display = 'flex';
+            errTip.style.display = 'none';
+            // 清空输入框
+            i1.value = '';
+            i2.value = '';
+            i3.value = '';
+        }
+        // 关闭弹窗
+        closeBtn.onclick = () => {
+            mask.style.display = 'none';
+        }
+        // 验证提交逻辑
+        submitBtn.onclick = () => {
+            const val1 = i1.value.trim();
+            const val2 = i2.value.trim();
+            const val3 = i3.value.trim();
+            // 正确答案：依次 高效、高质、高安全
+            if(val1 === '高效' && val2 === '高质' && val3 === '高安全'){
+                // 验证通过跳转目标页面
+                window.location.href = '/game/09xiangmu.html';
+            }else{
+                // 验证失败显示错误提示
+                errTip.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
