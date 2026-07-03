@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宁达建筑劳务有限公司 - 老板直达</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            padding-bottom: 80px;
+        }
+        /* 头部标题栏 */
+        .header-box {
+            background: #c41e23;
+            color: #fff;
+            padding: 16px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+        .header-box h1 {
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+        .header-box p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        .sub-title {
+            background: #fff;
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        /* 对话卡片通用 */
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+        .talk-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 14px;
+            box-shadow: 0 1px 4px #e0e0e0;
+        }
+        /* 老板头像标识 */
+        .boss-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .boss-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #c41e23;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .boss-name {
+            font-weight: bold;
+            font-size: 15px;
+        }
+        .boss-tag {
+            background: #c41e23;
+            color: white;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 6px;
+        }
+        .time-text {
+            color: #999;
+            font-size: 12px;
+            margin-left: auto;
+        }
+        /* 用户求职者发言 */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #6699cc;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .user-name {
+            font-size: 14px;
+            color: #444;
+        }
+        .content-text {
+            padding: 10px 12px;
+            border-radius: 8px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        .boss-text {
+            background: #fff0f0;
+            border: 1px solid #ffd6d6;
+        }
+        .user-text {
+            background: #f3f7ff;
+            border: 1px solid #dde8ff;
+        }
+        .divider {
+            height: 1px;
+            background: #eee;
+            margin: 18px 0;
+        }
+        .split-title {
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+            margin: 24px 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部头部 -->
+    <div class="header-box">
+        <h1>宁达建筑劳务有限公司</h1>
+        <p>老板直达专区 · 直接对接印总，招工求职实时沟通</p>
+    </div>
+    <div class="sub-title">老板直达互动留言区</div>
+
+    <div class="container">
+        <!-- 楼层1：求职者提问，印老板回复 -->
+        <div class="talk-card">
+            <!-- 用户1提问 -->
+            <div class="user-info">
+                <div class="user-avatar">务工1</div>
+                <div class="user-name">工地老周</div>
+                <span class="time-text">06-25 08:22</span>
+            </div>
+            <div class="content-text user-text">
+                印老板您好，想问下咱们公司现在有土建班组的活吗？我这边瓦工、钢筋工一共12个人，长期稳定班组，能全国各地跑。
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- 印老板回复 -->
+            <div class="boss-info">
+                <div class="boss-avatar">印</div>
+                <div class="boss-name">印老板 <span class="boss-tag">公司负责人</span></div>
+                <span class="time-text">06-25 09:15</span>
+            </div>
+            <div class="content-text boss-text">
+                老周你好，目前江苏、安徽两个工地缺土建班组，工期8个月，月结工资不拖欠。你把班组人员证书、联系方式在下面留一下，我让项目负责人直接联系你对接进场事宜。
+            </div>
+        </div>
+
+        <!-- 楼层2：第二个求职者提问 -->
+        <div class="talk-card">
+            <div class="user-info">
+                <div class="user-avatar">务工2</div>
+                <div class="user-name">小李木工</div>
+                <span class="time-text">06-25 10:04</span>
+            </div>
+            <div class="content-text user-text">
+                印总，我单人熟练木工，支模、拆模都能干，有没有短期急活？能接受赶工期加班。
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="boss-info">
+                <div class="boss-avatar">印</div>
+                <div class="boss-name">印老板 <span class="boss-tag">公司负责人</span></div>
+                <span class="time-text">06-25 10:40</span>
+            </div>
+            <div class="content-text boss-text">
+                合肥项目急需3名木工，短期两个月，日结280，包吃住。有意向直接私信留电话，今天就能安排上车。
+            </div>
+        </div>
+
+        <!-- 楼层3：第三个求职者提问 -->
+        <div class="talk-card">
+            <div class="user-info">
+                <div class="user-avatar">务工3</div>
+                <div class="user-name">起重王师傅</div>
+                <span class="time-text">06-25 11:12</span>
+            </div>
+            <div class="content-text user-text">
+                老板，我有塔吊操作证，干了6年塔吊，今年有没有新开项目招塔吊司机？
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="boss-info">
+                <div class="boss-avatar">印</div>
+                <div class="boss-name">印老板 <span class="boss-tag">公司负责人</span></div>
+                <span class="time-text">06-25 11:55</span>
+            </div>
+            <div class="content-text boss-text">
+                下个月山东新工地开工，需要4名持证塔吊司机，包吃住，每月准时发薪，有意向可以登记，开工前统一通知。
+            </div>
+        </div>
+
+        <!-- 分割板块：印老板主动征集需求 -->
+        <div class="split-title">———— 印老板征集用工需求留言 ————</div>
+        <div class="talk-card">
+            <!-- 印老板主动发帖 -->
+            <div class="boss-info">
+                <div class="boss-avatar">印</div>
+                <div class="boss-name">印老板 <span class="boss-tag">公司负责人</span></div>
+                <span class="time-text">06-26 09:00</span>
+            </div>
+            <div class="content-text boss-text">
+                各位工友大家好！近期多个新项目即将开工，现在统一征集大家的务工需求：<br>
+                1、手上有班组的可以报工种、人数、能驻场多久；<br>
+                2、单人务工说明工种、证书、期望薪资、能去哪个省份；<br>
+                3、有什么薪资、吃住、工期要求都可以直接留言，我统一查看安排！
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- 求职者争先留言1 -->
+            <div class="user-info">
+                <div class="user-avatar">务工4</div>
+                <div class="user-name">抹灰张队</div>
+                <span class="time-text">06-26 09:12</span>
+            </div>
+            <div class="content-text user-text">
+                印总我先来！抹灰班组15人，全是老手，全国各地都能去，工期一年以内都能接，要求工资每月15号准时发放，包食宿！
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- 求职者争先留言2 -->
+            <div class="user-info">
+                <div class="user-avatar">务工5</div>
+                <div class="user-name">水电小刘</div>
+                <span class="time-text">06-26 09:18</span>
+            </div>
+            <div class="content-text user-text">
+                单人水电工，持证强弱电都会，期望日薪300，江浙沪皖优先，长期活短期活都可以！
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- 求职者争先留言3 -->
+            <div class="user-info">
+                <div class="user-avatar">务工6</div>
+                <div class="user-name">架子工老杨</div>
+                <span class="time-text">06-26 09:25</span>
+            </div>
+            <div class="content-text user-text">
+                架子工班组8人，特种作业证齐全，能接高层外架，希望项目包路费，月结工资，有活随时联系！
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- 求职者争先留言4 -->
+            <div class="user-info">
+                <div class="user-avatar">务工7</div>
+                <div class="user-name">保洁陈大姐</div>
+                <span class="time-text">06-26 09:33</span>
+            </div>
+            <div class="content-text user-text">
+                印老板，我们4个女工，专门做工地现场保洁、宿舍清理，长期稳定，哪里缺保洁可以喊我们！
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- 求职者争先留言5 -->
+            <div class="user-info">
+                <div class="user-avatar">务工8</div>
+                <div class="user-name">电焊老吴</div>
+                <span class="time-text">06-26 09:41</span>
+            </div>
+            <div class="content-text user-text">
+                持证电焊工，钢结构、钢筋焊接都没问题，单人可长期驻场，薪资可以面谈，有活优先联系我！
+            </div>
+        </div>
+
+        <!-- 更多留言楼层 -->
+        <div class="talk-card">
+            <div class="user-info">
+                <div class="user-avatar">务工9</div>
+                <div class="user-name">开挖机阿凯</div>
+                <span class="time-text">06-26 09:50</span>
+            </div>
+            <div class="content-text user-text">
+                开挖机5年，大小挖机都会操作，有操作证，云贵川地区都能去，求长期稳定项目！
+            </div>
+        </div>
+
+        <div class="talk-card">
+            <div class="user-info">
+                <div class="user-avatar">务工10</div>
+                <div class="user-name">防水赵队</div>
+                <span class="time-text">06-26 10:05</span>
+            </div>
+            <div class="content-text user-text">
+                防水班组9人，屋面、地下室防水专业施工，自有工具，全国可进场，期待和印老板长期合作！
+            </div>
+        </div>
+    </div>
+</body>
+</html>
