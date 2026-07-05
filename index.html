@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>空白档案</title>
+    <title>网页解密游戏-空白档案</title>
     <style>
         * {
             margin: 0;
@@ -12,264 +12,361 @@
         }
 
         body {
-            background-color: #0a0a0a;
-            color: #c9c9c9;
-            font-family: "SimSun", "宋体", serif;
+            font-family: "Microsoft YaHei", "SimHei", monospace;
+            background-color: #0a0e14;
+            color: #c8c8c8;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            padding: 40px 20px;
+            overflow: hidden;
             position: relative;
-            overflow-y: auto;
         }
 
-        /* 动态波点画布 */
-        #bgCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* 纸张噪点纹理 叠加在波点之上 */
-        body::before {
-            content: "";
+        /* 网格背景效果 */
+        .grid-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-image: 
-                radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.6) 10%),
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+                linear-gradient(rgba(0, 120, 200, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 120, 200, 0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+            animation: gridMove 20 linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 40px 40px;
+            }
+        }
+
+        /* 扫描线效果 */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 0, 0, 0.3) 50%
+            );
+            background-size: 100% 4px;
             pointer-events: none;
             z-index: 1;
         }
 
+        /* 主容器 */
         .container {
-            max-width: 640px;
-            width: 100%;
             position: relative;
             z-index: 2;
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 60px 40px 80px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        .title {
+        /* 顶部标题 */
+        .header {
             text-align: center;
-            font-size: 36px;
-            letter-spacing: 16px;
-            color: #8b0000;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+            flex-shrink: 0;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1.2 ease, transform 1.2 ease;
-            text-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+            animation: fadeIn 1 ease forwards;
         }
 
-        .text-line {
-            font-size: 16px;
-            line-height: 1.9;
-            margin-bottom: 12px;
-            opacity: 0;
-            transform: translateY(15px);
-            transition: opacity 0.8 ease, transform 0.8 ease;
-            text-indent: 2em;
+        .header h1 {
+            font-size: 28px;
+            color: #4a9eff;
+            letter-spacing: 8px;
+            font-weight: normal;
+            text-shadow: 0 0 10px rgba(74, 158, 255, 0.5);
         }
 
-        .hint-section {
-            margin-top: 35px;
-            padding-top: 25px;
-            border-top: 1px dashed #333;
-            opacity: 0;
-            transition: opacity 1 ease;
-        }
-
-        .hint-title {
-            color: #666;
-            font-size: 13px;
-            margin-bottom: 10px;
+        .header .sub-title {
+            font-size: 14px;
+            color: #5a6a7a;
+            margin-top: 10px;
             letter-spacing: 2px;
         }
 
-        .hint-text {
-            font-size: 13px;
-            line-height: 1.8;
-            color: #777;
-            margin-bottom: 6px;
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #2a4a6a, transparent);
+            margin: 20px 0;
         }
 
-        .btn-wrapper {
+        /* 故事文本区域 - 可滚动 */
+        .story-box {
+            background: rgba(10, 20, 30, 0.7);
+            border: 1px solid #1a3a5a;
+            border-radius: 4px;
+            padding: 35px 40px;
+            margin-bottom: 30px;
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            line-height: 2;
+            font-size: 15px;
+            color: #b0c4d8;
+            text-indent: 2em;
+            scroll-behavior: smooth;
+        }
+
+        /* 自定义滚动条 */
+        .story-box::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .story-box::-webkit-scrollbar-track {
+            background: rgba(20, 40, 60, 0.3);
+        }
+
+        .story-box::-webkit-scrollbar-thumb {
+            background: #2a5a8a;
+            border-radius: 3px;
+        }
+
+        .story-box::-webkit-scrollbar-thumb:hover {
+            background: #3a7aba;
+        }
+
+        .story-text {
+            white-space: pre-wrap;
+            display: block;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background-color: #4a9eff;
+            animation: blink 0.8 infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* 提示区域 */
+        .warning-box {
+            background: rgba(60, 30, 30, 0.4);
+            border: 1px solid #6a3030;
+            border-left: 4px solid #c04040;
+            padding: 18px 25px;
+            margin-bottom: 35px;
+            font-size: 13px;
+            color: #d4a0a0;
+            display: none;
+            line-height: 1.8;
+            flex-shrink: 0;
+        }
+
+        .warning-box strong {
+            color: #ff6b6b;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        /* 按钮区域 */
+        .btn-container {
             text-align: center;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            opacity: 0;
-            transition: opacity 1 ease;
+            display: none;
+            flex-shrink: 0;
         }
 
         .start-btn {
             background: transparent;
-            border: 1px solid #555;
-            color: #aaa;
-            padding: 12px 40px;
-            font-size: 15px;
-            font-family: inherit;
-            letter-spacing: 6px;
+            border: 1px solid #2a5a8a;
+            color: #6ab0ff;
+            padding: 14px 50px;
+            font-size: 16px;
+            letter-spacing: 4px;
             cursor: pointer;
             transition: all 0.3 ease;
+            font-family: inherit;
             position: relative;
             overflow: hidden;
         }
 
         .start-btn:hover {
-            border-color: #8b0000;
-            color: #fff;
-            background-color: rgba(139, 0, 0, 0.1);
-            box-shadow: 0 0 20px rgba(139, 0, 0, 0.2);
+            background: rgba(74, 158, 255, 0.15);
+            border-color: #4a9eff;
+            color: #8cc4ff;
+            box-shadow: 0 0 20px rgba(74, 158, 255, 0.3);
         }
 
-        .start-btn:active {
-            transform: scale(0.98);
+        .start-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(74, 158, 255, 0.2), transparent);
+            transition: left 0.5 ease;
         }
 
-        /* 显示类 */
-        .show {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
+        .start-btn:hover::before {
+            left: 100%;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 底部状态栏 */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 20px;
+            font-size: 12px;
+            color: #3a5060;
+            display: flex;
+            justify-content: space-between;
+            z-index: 3;
+        }
+
+        .blink-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #3a8a3a;
+            border-radius: 50%;
+            margin-right: 6px;
+            animation: blink 2 infinite;
         }
     </style>
 </head>
 <body>
-    <!-- 动态波点背景画布 -->
-    <canvas id="bgCanvas"></canvas>
+    <div class="grid-bg"></div>
+    <div class="scanline"></div>
 
     <div class="container">
-        <div class="title" id="title">空白档案</div>
-
-        <div class="text-line">2026年6月1日，你的弟弟林默失联了。</div>
-        <div class="text-line">电话关机、出租屋空无一人。</div>
-        <div class="text-line">你找遍了这个你熟悉的宁州市，却没有任何线索。</div>
-        <div class="text-line">你次日便前往辖区派出所报案，填写了完整的失踪信息，拿到了盖着公章的报案回执。</div>
-        <div class="text-line">一周过去，警方没有任何回复。当你再次踏入警局询问进度时，接待你的警员却一脸茫然。</div>
-        <div class="text-line">系统里没有你的报案记录，也不承认你的报案回执，当班的所有人都声称从未见过你，更从未受理过这起失踪案。</div>
-        <div class="text-line">他们说你记错了，说你可能是压力太大出现了幻觉。</div>
-        <div class="text-line">但你清楚地记得一切，那纸回执还躺在你的口袋里。</div>
-        <div class="text-line">你不相信自己的记忆出了错。</div>
-        <div class="text-line">回到家后，抱着试一试的心态，打开了宁州市公安局的网站，决定自己找出真相。</div>
-
-        <div class="hint-section" id="hintSection">
-            <div class="hint-title">【游戏提示】</div>
-            <div class="hint-text">· 你需要在虚拟网页中点击或使用搜索功能寻找线索。</div>
-            <div class="hint-text">· 本游戏不需要更改网址、查看源代码或使用其他开发者工具，这样会影响游戏体验。</div>
+        <div class="header">
+            <h1>空白档案</h1>
+            <div class="sub-title">Blank Dossier</div>
+            <div class="divider"></div>
         </div>
 
-        <div class="btn-wrapper" id="btnWrapper">
-            <button class="start-btn" onclick="startGame()">开始调查</button>
+        <div class="story-box" id="storyBox">
+            <span class="story-text" id="storyText"></span><span class="cursor" id="cursor"></span>
+        </div>
+
+        <div class="warning-box" id="warningBox">
+            <strong>游戏提示</strong>
+            请勿通过修改网址、直接查看源代码等方式获取线索，这将严重影响游戏体验。<br>
+            所有线索均可通过网站内的点击操作、搜索功能等正常交互途径获得。
+        </div>
+
+        <div class="btn-container" id="btnContainer">
+            <button class="start-btn" onclick="startGame()">开 始 调 查</button>
         </div>
     </div>
 
+    <div class="footer">
+        <span><span class="blink-dot"></span>系统状态：正常</span>
+        <span>访问时间：2024-06-20 23:47</span>
+    </div>
+
     <script>
-        // ========== 动态波点背景 ==========
-        const canvas = document.getElementById('bgCanvas');
-        const ctx = canvas.getContext('2d');
-        let dots = [];
-        const dotCount = 60; // 数量适中，保证密集但不杂乱
+        const storyContent = `
+弟弟的成绩一直不好，高中毕业以后就早早踏入了社会。
 
-        // 适配高清屏
-        function resizeCanvas() {
-            const dpr = window.devicePixelRatio || 1;
-            canvas.width = window.innerWidth * dpr;
-            canvas.height = window.innerHeight * dpr;
-            ctx.scale(dpr, dpr);
-            canvas.style.width = window.innerWidth + 'px';
-            canvas.style.height = window.innerHeight + 'px';
-            initDots();
-        }
+几天前，他兴冲冲地告诉我，在聘查查上找到了一份还不错的工作，地点在宁洲市东湖区。为了方便上班，他在公司附近租了一间小房子。
 
-        // 初始化波点
-        function initDots() {
-            dots = [];
-            const w = window.innerWidth;
-            const h = window.innerHeight;
-            for (let i = 0; i < dotCount; i++) {
-                dots.push({
-                    x: Math.random() * w,
-                    y: Math.random() * h,
-                    radius: Math.random() * 3 + 2, // 波点尺寸加大，2~5px
-                    vx: (Math.random() - 0.5) * 0.2, // 缓慢横向漂移
-                    vy: (Math.random() - 0.5) * 0.2, // 缓慢纵向漂移
-                    alpha: Math.random() * 0.3 + 0.1, // 基础透明度
-                    alphaSpeed: (Math.random() - 0.5) * 0.004 // 呼吸速度加快，明暗更明显
-                });
+六月一日那天，在我心里他始终还是个没长大的孩子。我买了蛋糕和礼物，想去他的出租屋陪他过个儿童节。可电话打了一遍又一遍，始终无人接听。
+
+我找到他租住的地方，房门紧锁，屋内空无一人。邻居说已经好几天没见过他了。
+
+我慌了神，立刻跑到辖区派出所报案。接待我的民警做了笔录，说已经登记在案，让我回家等消息。
+
+可是，快二十天过去了，没有任何音讯。
+
+今天，我再次来到警局询问进展。可窗口的民警却告诉我——系统里没有任何报案记录，他们从未接收过此案，也从未见过我。
+
+所有人都在告诉我，是我记错了。
+
+走投无路的夜里，某种说不清的第六感驱使着我，打开了宁洲市东湖区公安局的官方网站。
+
+我有一种强烈的预感——真相，就藏在这片冰冷的互联网深处。`;
+
+        const storyBox = document.getElementById('storyBox');
+        const storyText = document.getElementById('storyText');
+        const cursor = document.getElementById('cursor');
+        const warningBox = document.getElementById('warningBox');
+        const btnContainer = document.getElementById('btnContainer');
+        
+        let index = 0;
+        const typeSpeed = 45; // 打字速度，毫秒
+
+        function typeWriter() {
+            if (index < storyContent.length) {
+                storyText.textContent += storyContent.charAt(index);
+                index++;
+                // 自动滚动到底部
+                storyBox.scrollTop = storyBox.scrollHeight;
+                setTimeout(typeWriter, typeSpeed);
+            } else {
+                // 打字结束，隐藏光标，显示提示和按钮
+                cursor.style.display = 'none';
+                setTimeout(() => {
+                    warningBox.style.display = 'block';
+                    warningBox.style.animation = 'fadeIn 0.8s ease forwards';
+                }, 500);
+                setTimeout(() => {
+                    btnContainer.style.display = 'block';
+                    btnContainer.style.animation = 'fadeIn 0.8s ease forwards';
+                }, 1200);
             }
         }
 
-        // 绘制动画
-        function animateDots() {
-            const w = window.innerWidth;
-            const h = window.innerHeight;
-            ctx.clearRect(0, 0, w, h);
-
-            dots.forEach(dot => {
-                // 更新位置
-                dot.x += dot.vx;
-                dot.y += dot.vy;
-
-                // 边界反弹
-                if (dot.x < 0 || dot.x > w) dot.vx *= -1;
-                if (dot.y < 0 || dot.y > h) dot.vy *= -1;
-
-                // 透明度呼吸，范围加大，忽明忽暗更显著
-                dot.alpha += dot.alphaSpeed;
-                if (dot.alpha > 0.5 || dot.alpha < 0.08) dot.alphaSpeed *= -1;
-
-                // 绘制波点（灰色）
-                ctx.beginPath();
-                ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(160, 160, 160, ${dot.alpha})`;
-                ctx.fill();
-            });
-
-            requestAnimationFrame(animateDots);
-        }
-
-        // 启动背景动画
-        resizeCanvas();
-        animateDots();
-        window.addEventListener('resize', resizeCanvas);
-
-        // ========== 原有文字逐条显示逻辑 ==========
-        const lines = document.querySelectorAll('.text-line');
-        const title = document.getElementById('title');
-        const hintSection = document.getElementById('hintSection');
-        const btnWrapper = document.getElementById('btnWrapper');
-
         function startGame() {
-            window.location.href = '/game/01gonganju.html';
+            // 按钮点击过渡效果
+            document.body.style.transition = 'opacity 0.5s ease';
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                window.location.href = '/game/01gonganju.html';
+            }, 500);
         }
 
-        function playSequence() {
-            setTimeout(() => {
-                title.classList.add('show');
-            }, 800);
+        // 页面加载后延迟开始打字
+        window.onload = function() {
+            setTimeout(typeWriter, 1000);
+        };
 
-            lines.forEach((line, index) => {
+        // 点击页面任意位置加速跳过打字效果
+        document.addEventListener('click', function(e) {
+            if (index < storyContent.length && !e.target.classList.contains('start-btn')) {
+                index = storyContent.length;
+                storyText.textContent = storyContent;
+                storyBox.scrollTop = storyBox.scrollHeight;
+                cursor.style.display = 'none';
                 setTimeout(() => {
-                    line.classList.add('show');
-                }, 1800 + index * 1100);
-            });
-
-            setTimeout(() => {
-                hintSection.classList.add('show');
-            }, 1800 + lines.length * 1100 + 500);
-
-            setTimeout(() => {
-                btnWrapper.classList.add('show');
-            }, 1800 + lines.length * 1100 + 1200);
-        }
-
-        window.addEventListener('load', playSequence);
+                    warningBox.style.display = 'block';
+                    warningBox.style.animation = 'fadeIn 0.8s ease forwards';
+                }, 300);
+                setTimeout(() => {
+                    btnContainer.style.display = 'block';
+                    btnContainer.style.animation = 'fadeIn 0.8s ease forwards';
+                }, 800);
+            }
+        });
     </script>
 </body>
 </html>
