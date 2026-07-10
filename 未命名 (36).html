@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技术运维管理平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e6f0ff 0%, #c8dbf5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+            color: #333;
+        }
+
+        /* 主窗口容器 */
+        .window {
+            width: 1000px;
+            height: 680px;
+            background: #f0f6ff;
+            border: 1px solid #8aaed8;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 51, 153, 0.18), inset 0 1px 0 rgba(255,255,255,0.7);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 顶部头部 */
+        .header {
+            height: 70px;
+            background: linear-gradient(to bottom, #e8f1ff, #d6e4f7);
+            border-bottom: 1px solid #a9c4e8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            flex-shrink: 0;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .ms-logo {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 4px;
+            cursor: default;
+            user-select: none;
+        }
+
+        .ms-logo div:nth-child(1) { background: #f25022; }
+        .ms-logo div:nth-child(2) { background: #7fba00; }
+        .ms-logo div:nth-child(3) { background: #00a4ef; }
+        .ms-logo div:nth-child(4) { background: #ffb900; }
+
+        .platform-name {
+            font-size: 24px;
+            color: #003399;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .user-name {
+            color: #003399;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            padding: 6px 16px;
+            background: linear-gradient(to bottom, #5b9bd5, #3a74b8);
+            color: #fff;
+            border: 1px solid #2e5c99;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3);
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(to bottom, #6ba8e0, #4682c4);
+        }
+
+        .logout-btn:active {
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* 主体容器 */
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* 左侧快捷栏 */
+        .sidebar {
+            width: 200px;
+            background: #eaf2fc;
+            border-right: 1px solid #b8cfe8;
+            padding-top: 20px;
+            flex-shrink: 0;
+        }
+
+        .menu-item {
+            padding: 12px 20px;
+            font-size: 15px;
+            color: #003399;
+            cursor: pointer;
+            border-bottom: 1px solid #d6e4f7;
+            transition: background 0.2s;
+        }
+
+        .menu-item:hover {
+            background: #d6e4f7;
+        }
+
+        .menu-item.active {
+            background: #c5d8f0;
+            font-weight: bold;
+            border-left: 4px solid #3a74b8;
+            padding-left: 16px;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            padding: 25px 35px;
+            overflow-y: auto;
+        }
+
+        .content-panel {
+            display: none;
+        }
+
+        .content-panel.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: #003399;
+            font-weight: bold;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #5b9bd5;
+            margin-bottom: 15px;
+        }
+
+        .news-section {
+            background: #fff;
+            border: 1px solid #b8cfe8;
+            border-radius: 6px;
+            padding: 18px 22px;
+            margin-bottom: 25px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .news-list {
+            list-style: none;
+        }
+
+        .news-list li {
+            padding: 9px 0;
+            border-bottom: 1px dashed #d6e4f7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .news-list li:last-child {
+            border-bottom: none;
+        }
+
+        .news-title {
+            color: #222;
+            cursor: pointer;
+        }
+
+        .news-title:hover {
+            color: #0066cc;
+            text-decoration: underline;
+        }
+
+        .news-date {
+            color: #888;
+            font-size: 13px;
+            flex-shrink: 0;
+            margin-left: 20px;
+        }
+
+        .link-news {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .link-news:hover {
+            text-decoration: underline;
+        }
+
+        /* 账号管理表格样式 */
+        .account-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border: 1px solid #b8cfe8;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .account-table th {
+            background: linear-gradient(to bottom, #e8f1ff, #d6e4f7);
+            color: #003399;
+            font-weight: bold;
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #a9c4e8;
+            font-size: 14px;
+        }
+
+        .account-table td {
+            padding: 11px 15px;
+            border-bottom: 1px solid #d6e4f7;
+            font-size: 14px;
+        }
+
+        .account-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .account-table tr:hover {
+            background: #f5f9ff;
+        }
+
+        .account-disabled {
+            color: #999;
+        }
+
+        .reset-btn {
+            padding: 5px 12px;
+            background: linear-gradient(to bottom, #5b9bd5, #3a74b8);
+            color: #fff;
+            border: 1px solid #2e5c99;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .reset-btn:hover {
+            background: linear-gradient(to bottom, #6ba8e0, #4682c4);
+        }
+
+        .reset-btn:active {
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .reset-btn:disabled {
+            background: #b8cfe8;
+            border-color: #a9c4e8;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* 开发者功能弹窗 */
+        .modal-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 51, 153, 0.25);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        .modal-window {
+            width: 420px;
+            background: #f0f6ff;
+            border: 1px solid #8aaed8;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0, 51, 153, 0.25), inset 0 1px 0 rgba(255,255,255,0.7);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modal-title {
+            background: linear-gradient(to bottom, #e8f1ff, #d6e4f7);
+            border-bottom: 1px solid #a9c4e8;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #003399;
+        }
+
+        .modal-content {
+            padding: 30px 25px;
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 20px;
+            color: #666;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: #003399;
+        }
+
+        .clear-mark-btn {
+            margin-top: 20px;
+            padding: 8px 20px;
+            background: linear-gradient(to bottom, #5b9bd5, #3a74b8);
+            color: #fff;
+            border: 1px solid #2e5c99;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .clear-mark-btn:hover {
+            background: linear-gradient(to bottom, #6ba8e0, #4682c4);
+        }
+
+        .clear-mark-btn:active {
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <!-- 顶部头部 -->
+        <div class="header">
+            <div class="logo-title">
+                <div class="ms-logo" id="devLogo">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="platform-name">技术运维管理平台</div>
+            </div>
+            <div class="user-info">
+                <span>运维账号：<span class="user-name">刘康</span></span>
+                <a href="/game/01jishu.html" class="logout-btn">退出登录</a>
+            </div>
+        </div>
+
+        <!-- 主体区域 -->
+        <div class="container">
+            <!-- 左侧快捷栏 -->
+            <div class="sidebar">
+                <div class="menu-item active" onclick="switchTab('published')">已发布推文</div>
+                <div class="menu-item" onclick="switchTab('unpublished')">待发布/已删除推文</div>
+                <div class="menu-item" onclick="switchTab('account')">账号管理</div>
+            </div>
+
+            <!-- 主内容 -->
+            <div class="main-content">
+                <!-- 已发布推文 -->
+                <div id="published" class="content-panel active">
+                    <div class="news-section">
+                        <div class="section-title">实时新闻专区</div>
+                        <ul class="news-list">
+                            <li>
+                                <span class="news-title">公安部召开新闻发布会通报当前电信网络诈骗犯罪形势及打击治理成效</span>
+                                <span class="news-date">06-22</span>
+                            </li>
+                            <li>
+                                <span class="news-title">杜绝虚假警情 守护公共警务资源</span>
+                                <span class="news-date">06-19</span>
+                            </li>
+                            <li>
+                                <span class="news-title">中央宣传部、公安部联合部署在全国开展2026年“最美基层民警”学习宣传活动</span>
+                                <span class="news-date">06-11</span>
+                            </li>
+                            <li>
+                                <span class="news-title">全市烟花爆竹全链条安全集中整治工作部署会召开 筑牢安全生产防线</span>
+                                <span class="news-date">05-19</span>
+                            </li>
+                            <li>
+                                <span class="news-title">全市中小学生防溺水工作部署会召开</span>
+                                <span class="news-date">05-19</span>
+                            </li>
+                            <li>
+                                <span class="news-title">市局召开全市公安机关“践行正确政绩观 凝心聚力促发展”主题教育部署会</span>
+                                <span class="news-date">04-29</span>
+                            </li>
+                            <li>
+                                <span class="news-title">公安部部署夏季治安打击整治行动 切实维护社会治安稳定</span>
+                                <span class="news-date">04-15</span>
+                            </li>
+                            <li>
+                                <span class="news-title">东湖区公安分局开展反诈宣传进社区活动</span>
+                                <span class="news-date">04-08</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="news-section">
+                        <div class="section-title">公示公告专区</div>
+                        <ul class="news-list">
+                            <li>
+                                <span class="news-title">公仆初心显担当--东湖区公安分局顾振义副局长一家善行事迹</span>
+                                <span class="news-date">04-23</span>
+                            </li>
+                            <li>
+                                <span class="news-title">关于征集《宁州市公共安全视频图像信息系统管理办法》意见建议的情况</span>
+                                <span class="news-date">03-15</span>
+                            </li>
+                            <li>
+                                <span class="news-title">宁州市公安局2025年度法治政府建设目标</span>
+                                <span class="news-date">03-13</span>
+                            </li>
+                            <li>
+                                <span class="news-title">关于公开征集《宁州市公共安全视频图像信息系统管理办法》意见建议的公告</span>
+                                <span class="news-date">02-05</span>
+                            </li>
+                            <li>
+                                <span class="news-title">宁州市东湖区公安分局关于顾振义同志职务任免的通知</span>
+                                <span class="news-date">01-20</span>
+                            </li>
+                            <li>
+                                <span class="news-title">关于规范警车使用与管理的通知</span>
+                                <span class="news-date">12-13</span>
+                            </li>
+                            <li>
+                                <span class="news-title">关于注销1名外国籍留学生居留许可的决定</span>
+                                <span class="news-date">12-24</span>
+                            </li>
+                            <li>
+                                <span class="news-title">关于更换分局内网办公系统登录端口的通知</span>
+                                <span class="news-date">12-24</span>
+                            </li>
+                            <li>
+                                <span class="news-title">东湖区公安分局2024年度工作总结及2025年工作计划</span>
+                                <span class="news-date">12-10</span>
+                            </li>
+                            <li>
+                                <span class="news-title">宁州市公安局关于加强春节期间安保工作的通知</span>
+                                <span class="news-date">01-15</span>
+                            </li>
+                            <li>
+                                <span class="news-title">东湖区公安分局窗口服务时间调整公告</span>
+                                <span class="news-date">12-01</span>
+                            </li>
+                            <li>
+                                <span class="news-title">宁州市公安局涉案财物管理中心搬迁公告</span>
+                                <span class="news-date">11-20</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 待发布/已删除推文 -->
+                <div id="unpublished" class="content-panel">
+                    <div class="news-section">
+                        <div class="section-title">待发布/已删除推文</div>
+                        <ul class="news-list">
+                            <li>
+                                <a href="/game/11donghu.html" class="news-title link-news">东湖区即将进行开发，安宁公司中标</a>
+                                <span class="news-date">04-09</span>
+                            </li>
+                            <li>
+                                <a href="/game/11weixian.html" class="news-title link-news">东湖区开发工地出现安全状况，公安局积极前往调查</a>
+                                <span class="news-date">05-31</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 账号管理 -->
+                <div id="account" class="content-panel">
+                    <div class="section-title">账号管理</div>
+                    <table class="account-table">
+                        <thead>
+                            <tr>
+                                <th>账号</th>
+                                <th>用户名</th>
+                                <th>权限</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>lk00921@nzs.gov.cn</td>
+                                <td>刘康</td>
+                                <td>管理员</td>
+                                <td><button class="reset-btn" onclick="resetPassword('self')">重置密码</button></td>
+                            </tr>
+                            <tr>
+                                <td>zwd00265@nzs.gov.cn</td>
+                                <td>赵伟德</td>
+                                <td>用户</td>
+                                <td><button class="reset-btn" onclick="resetPassword('normal')">重置密码</button></td>
+                            </tr>
+                            <tr>
+                                <td>gzy00864@nzs.gov.cn</td>
+                                <td>顾振义</td>
+                                <td>用户</td>
+                                <td><button class="reset-btn" onclick="resetPassword('gzy')">重置密码</button></td>
+                            </tr>
+                            <tr class="account-disabled">
+                                <td>lch00791@nzs.gov.cn</td>
+                                <td>刘长宏</td>
+                                <td>临时用户（已注销账号）</td>
+                                <td><button class="reset-btn" disabled>重置密码</button></td>
+                            </tr>
+                            <tr>
+                                <td>wjh00312@nzs.gov.cn</td>
+                                <td>王建华</td>
+                                <td>用户</td>
+                                <td><button class="reset-btn" onclick="resetPassword('normal')">重置密码</button></td>
+                            </tr>
+                            <tr>
+                                <td>zqm00547@nzs.gov.cn</td>
+                                <td>张启明</td>
+                                <td>用户</td>
+                                <td><button class="reset-btn" onclick="resetPassword('normal')">重置密码</button></td>
+                            </tr>
+                            <tr>
+                                <td>lxy00783@nzs.gov.cn</td>
+                                <td>李晓燕</td>
+                                <td>用户</td>
+                                <td><button class="reset-btn" onclick="resetPassword('normal')">重置密码</button></td>
+                            </tr>
+                            <tr>
+                                <td>cjg00156@nzs.gov.cn</td>
+                                <td>陈建国</td>
+                                <td>用户</td>
+                                <td><button class="reset-btn" onclick="resetPassword('normal')">重置密码</button></td>
+                            </tr>
+                            <tr>
+                                <td>ylf00629@nzs.gov.cn</td>
+                                <td>杨丽芳</td>
+                                <td>用户</td>
+                                <td><button class="reset-btn" onclick="resetPassword('normal')">重置密码</button></td>
+                            </tr>
+                            <tr>
+                                <td>hzh00471@nzs.gov.cn</td>
+                                <td>黄志宏</td>
+                                <td>用户</td>
+                                <td><button class="reset-btn" onclick="resetPassword('normal')">重置密码</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 开发者功能弹窗 -->
+    <div id="devModal" class="modal-mask">
+        <div class="modal-window">
+            <div class="modal-title">开发者功能</div>
+            <div class="modal-close" onclick="closeDevModal()">×</div>
+            <div class="modal-content">
+                如果您在正常游戏中误触发了本页，请直接关闭，继续正常游戏流程
+                <br>
+                <button class="clear-mark-btn" onclick="clearResetMark()">清除浏览器标记</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            // 切换菜单激活状态
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => item.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // 切换内容面板
+            const panels = document.querySelectorAll('.content-panel');
+            panels.forEach(panel => panel.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function resetPassword(type) {
+            if (type === 'self') {
+                alert('无法重置自己账号密码');
+                return;
+            }
+            if (type === 'gzy') {
+                alert('已重置为初始密码');
+                // 在浏览器本地存储标记，永久记住该操作
+                localStorage.setItem('gzy_password_reset', 'true');
+                return;
+            }
+            // 普通账号默认逻辑
+            alert('已重置为初始密码');
+        }
+
+        // 连续点击Logo触发开发者功能
+        let logoClickCount = 0;
+        let logoClickTimer = null;
+        const devLogo = document.getElementById('devLogo');
+
+        devLogo.addEventListener('click', function() {
+            logoClickCount++;
+            clearTimeout(logoClickTimer);
+            
+            if (logoClickCount === 3) {
+                document.getElementById('devModal').style.display = 'flex';
+                logoClickCount = 0;
+                return;
+            }
+            
+            // 1.5秒内未继续点击则重置计数
+            logoClickTimer = setTimeout(() => {
+                logoClickCount = 0;
+            }, 1500);
+        });
+
+        function closeDevModal() {
+            document.getElementById('devModal').style.display = 'none';
+        }
+
+        function clearResetMark() {
+            localStorage.removeItem('gzy_password_reset');
+            alert('浏览器标记已清除');
+            closeDevModal();
+        }
+
+        // 点击遮罩层也可关闭弹窗
+        document.getElementById('devModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeDevModal();
+            }
+        });
+    </script>
+</body>
+</html>
