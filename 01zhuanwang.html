@@ -287,10 +287,27 @@
     const correctUser = 'lch00791@nzs.gov.cn';
     const correctPass = 'nzsplc@123';
 
+    // 顾振义专属账号
+    const gzyUser = 'gzy00864@nzs.gov.cn';
+    const gzyPass = 'nzsplc@123';
+
     function checkLogin() {
         const username = document.getElementById('username').value.trim();
         const password = document.getElementById('password').value;
 
+        // 顾振义账号专属判断：仅当存在重置密码标记时才可登录
+        if (username === gzyUser) {
+            const hasResetMark = localStorage.getItem('gzy_password_reset') === 'true';
+            if (hasResetMark && password === gzyPass) {
+                window.location.href = '/game/12gzy.html';
+                return;
+            } else {
+                alert('账号或密码错误，请重新输入');
+                return;
+            }
+        }
+
+        // 原有正常登录逻辑
         if (username === correctUser && password === correctPass) {
             // 验证通过，跳转页面
             window.location.href = '/game/03liuchanghong.html';
