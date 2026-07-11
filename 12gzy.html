@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
+ <meta charset="UTF-8">
     <title>专网办公系统 - 宁洲市东湖区公安局</title>
     <style>
         * {
@@ -26,7 +27,7 @@
         .logo-img {
             width: 80px;
             height: 80px;
-        }
+ }
         .logo-text h1 {
             color: #0044aa;
             font-size: 30px;
@@ -69,7 +70,7 @@
         }
         /* 左侧导航栏 */
         .sidebar {
-            width: 200px;
+ width: 200px;
             background: #f0f7ff;
             border: 1px solid #b8d8f8;
             float: left;
@@ -95,7 +96,7 @@
         }
         .sidebar li.active a:hover {
             background: #0066cc;
-            color: #fff;
+ color: #fff;
         }
         /* 右侧内容区 */
         .content-wrap {
@@ -164,10 +165,10 @@
             font-size: 12px;
             text-align: right;
             margin-bottom: 12px;
-            padding-bottom: 8px;
+ padding-bottom: 8px;
             border-bottom: 1px dotted #cce0f5;
         }
-        /* 清除浮动 */
+ /* 清除浮动 */
         .clearfix::after {
             content: "";
             display: table;
@@ -200,9 +201,9 @@
         <img src="/game/pic/01logo.png" alt="公安国徽" width="80" height="80">
     </div>
     <div class="logo-text">
-        <h1>专网办公系统</h1>
-        <p>宁洲市东湖区公安局</p>
-    </div>
+ <h1>专网办公系统</h1>
+<p>宁洲市东湖区公安局</p>
+</div>
     <div class="user-info">
         <span>欢迎你，顾振义</span>
         <a href="/game/01zhuanwang.html">退出登录</a>
@@ -214,11 +215,11 @@
     <div class="sidebar">
         <div class="block-title">办公导航</div>
         <ul>
-            <li class="active" data-target="notice"><a>工作通知</a></li>
+<li class="active" data-target="notice"><a>工作通知</a></li>
             <li data-target="memo"><a>备忘录</a></li>
-            <li data-target="mail"><a>收件箱</a></li>
+ <li data-target="mail"><a>收件箱</a></li>
             <li data-target="sendMail"><a>发件箱</a></li>
-        </ul>
+ </ul>
     </div>
 
     <!-- 右侧内容区 -->
@@ -238,14 +239,14 @@
                         <li><a data-memo="1">2026-1-30</a></li>
                         <li><a data-memo="2">2026-1-25</a></li>
                         <li><a data-memo="3">2025-11-06</a></li>
-                    </ul>
+ </ul>
                 </div>
                 <!-- 备忘录详情 -->
                 <div class="memo-detail panel" id="memoDetail">
                     <div class="back-btn"><a id="memoBack">← 返回备忘录列表</a></div>
                     <div class="detail-box">
                         <h3 id="memoDetailTitle"></h3>
-                        <div id="memoDetailContent"></div>
+ <div id="memoDetailContent"></div>
                     </div>
                 </div>
             </div>
@@ -265,29 +266,29 @@
                     <div class="back-btn"><a id="mailBack">← 返回收件箱列表</a></div>
                     <div class="detail-box">
                         <h3 id="mailDetailTitle"></h3>
-                        <div class="data-warning">收件邮件，已同步至本地</div>
+<div class="data-warning">收件邮件，已同步至本地</div>
                         <div id="mailDetailContent"></div>
                     </div>
                 </div>
             </div>
 
             <!-- 发件箱面板 -->
-            <div class="panel" id="sendMailPanel">
-                <!-- 发件箱列表 -->
+ <div class="panel" id="sendMailPanel">
+ <!-- 发件箱列表 -->
                 <div class="sendMail-list">
-                    <ul class="common-list">
-                        <li><a data-sendmail="1">致老友的任职答谢信</a></li>
-                        <li><a data-sendmail="2">安宁建工回复</a></li>
+<ul class="common-list">
+<li><a data-sendmail="1">致老友的任职答谢信</a></li>
+<li><a data-sendmail="2">安宁建工回复</a></li>
                     </ul>
                 </div>
                 <!-- 发件箱详情 -->
                 <div class="sendMail-detail panel" id="sendMailDetail">
                     <div class="back-btn"><a id="sendMailBack">← 返回发件箱列表</a></div>
-                    <div class="detail-box">
-                        <h3 id="sendMailDetailTitle"></h3>
+<div class="detail-box">
+ <h3 id="sendMailDetailTitle"></h3>
                         <div class="data-warning">已发送邮件，存档保留</div>
-                        <div id="sendMailDetailContent"></div>
-                    </div>
+<div id="sendMailDetailContent"></div>
+ </div>
                 </div>
             </div>
         </div>
@@ -305,7 +306,7 @@
     var memoData = {
         1: { 
             title: '2026-1-30', 
-            content: '保安全（banq.com)加密邮箱 网址点击进入' 
+            content: '保安全<a href="/game/13banq.html" target="_blank">（banq.com)</a>加密邮箱 网址点击进入' 
         },
         2: { 
             title: '2026-1-25', 
@@ -314,8 +315,8 @@
         3: { 
             title: '2025-11-06', 
             content: '    最近他身体越来越不行了，气色一天比一天差，连上三楼都要歇两趟。这几天也不能忘了每天去给他端茶倒水，嘘寒问暖不能断，分寸得拿捏好。照这个势头看，马上就能成了，熬了这么久，总算要等到头了。' 
-        }
-        
+ }
+
     };
 
     // 收件箱数据
@@ -336,13 +337,13 @@
 
     // 发件箱数据
     var sendMailData = {
-        
+
         2: { 
             title: '安宁建工回复', 
             content: '针对东湖区开发项目的警务协作事宜，我愿意就项目建设期间的治安保障、警务对接等事项开展合作，为项目建设提供必要的便利与支持。\n\n我的私人邮箱：41398468@banq.com我亲自和你对接' 
         },
-        1: { 
-            title: '致老友的任职答谢信', 
+        1: {
+            title: '致老友的任职答谢信',
             content: '老兄：\n\n来信收到，十分感谢你的祝贺与挂念。\n\n此次能走上新的岗位，离不开组织的信任，也少不了各位老友平日的支持与帮衬。岗位变了，职责更重了，往后工作中还望你多多提点、多多配合。\n\n等过阵子忙完手头的事，约个时间一起坐坐，当面致谢。\n\n顺颂安好\n顾振义\n2026年1月17日' 
         }
     };
@@ -404,8 +405,8 @@
             var id = a.getAttribute('data-memo');
             var data = memoData[id];
             document.getElementById('memoDetailTitle').innerText = data.title;
-            document.getElementById('memoDetailContent').innerText = data.content;
-            
+            document.getElementById('memoDetailContent').innerHTML = data.content;
+
             document.querySelector('.memo-list').style.display = 'none';
             memoDetail.classList.add('active');
         });
@@ -424,7 +425,7 @@
             var data = mailData[id];
             document.getElementById('mailDetailTitle').innerText = data.title;
             document.getElementById('mailDetailContent').innerText = data.content;
-            
+
             document.querySelector('.mail-list').style.display = 'none';
             mailDetail.classList.add('active');
         });
@@ -443,7 +444,7 @@
             var data = sendMailData[id];
             document.getElementById('sendMailDetailTitle').innerText = data.title;
             document.getElementById('sendMailDetailContent').innerText = data.content;
-            
+
             document.querySelector('.sendMail-list').style.display = 'none';
             sendMailDetail.classList.add('active');
         });
