@@ -36,16 +36,14 @@ var keywordList = [
 
     },
     {
-        keyword: "夏季治安",
-        title: "公安部部署夏季治安打击整治行动 切实维护社会治安稳定",
-        url: "#",
-        date: "04-15"
+        keyword: "安宁",
+        title: "宁洲市关于表彰安宁建工有限公司的通报",
+        url: "/game/05anning.html",
     },
     {
-        keyword: "警车",
+        keyword: "宁州前线",
         title: "关于规范警车使用与管理的通知",
         url: "#",
-        date: "12-13"
     },
     {
         keyword: "消防安全",
