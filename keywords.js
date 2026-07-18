@@ -42,13 +42,8 @@ var keywordList = [
     },
     {
         keyword: "宁州前线",
-        title: "关于规范警车使用与管理的通知",
-        url: "#",
+        title: "宁州前线-做新时代媒体",
+        url: "/game/13qianxian.html",
     },
-    {
-        keyword: "消防安全",
-        title: "东湖区开展春季消防安全大检查",
-        url: "#",
-        date: "03-25"
-    }
+
 ];
