@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>最终抉择</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: #0a0a0a;
+        color: #c8c8c8;
+        font-family: "Microsoft YaHei", "SimHei", monospace;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        line-height: 1.8;
+        font-size: 16px;
+    }
+
+    .container {
+        max-width: 720px;
+        width: 100%;
+    }
+
+    .text-line {
+        opacity: 0;
+        margin-bottom: 14px;
+        transform: translateY(8px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .text-line.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .highlight {
+        color: #e63946;
+    }
+
+    .choice-box {
+        opacity: 0;
+        margin-top: 40px;
+        display: none;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .choice-box.show {
+        opacity: 1;
+        display: flex;
+    }
+
+    .btn {
+        background: transparent;
+        border: 1px solid #555;
+        color: #c8c8c8;
+        padding: 12px 36px;
+        font-size: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: inherit;
+    }
+
+    .btn:hover {
+        border-color: #e63946;
+        color: #e63946;
+        background: rgba(230, 57, 70, 0.08);
+    }
+
+    .input-section {
+        opacity: 0;
+        display: none;
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .input-section.show {
+        opacity: 1;
+        display: block;
+        animation: fadeIn 0.6s ease forwards;
+    }
+
+    .input-section p {
+        margin-bottom: 16px;
+        color: #999;
+        font-size: 14px;
+    }
+
+    .input-section input {
+        width: 320px;
+        max-width: 100%;
+        background: #111;
+        border: 1px solid #444;
+        color: #ddd;
+        padding: 10px 14px;
+        font-size: 15px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .input-section input:focus {
+        border-color: #e63946;
+    }
+
+    .input-section .btn {
+        margin-top: 18px;
+    }
+
+    .ending {
+        opacity: 0;
+        display: none;
+    }
+
+    .ending.show {
+        opacity: 1;
+        display: block;
+        animation: fadeIn 0.8s ease forwards;
+    }
+
+    .ending h2 {
+        color: #e63946;
+        margin-bottom: 24px;
+        font-size: 20px;
+        font-weight: normal;
+        letter-spacing: 2px;
+    }
+
+    .ending p {
+        margin-bottom: 14px;
+        color: #b8b8b8;
+    }
+
+    .good-ending h2 {
+        color: #a8dadc;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cursor {
+        display: inline-block;
+        width: 8px;
+        height: 16px;
+        background: #c8c8c8;
+        margin-left: 4px;
+        animation: blink 1s infinite;
+        vertical-align: middle;
+    }
+
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <!-- 开场剧情 -->
+    <div id="intro">
+        <div class="text-line">电话响了。</div>
+        <div class="text-line">是警察打来的。</div>
+        <div class="text-line">他们要求你立刻前往辖区派出所接受调查，否则民警将在十分钟内赶到你所在的位置。</div>
+        <div class="text-line">事到如今，你终于知道了弟弟的下落。</div>
+        <div class="text-line">他顺着那条招聘信息去了<span class="highlight">安宁建工</span>，却在五月三十号的工地安全事故中丧生。</div>
+        <div class="text-line">安宁建工买通了新上任的副局长<span class="highlight">顾振义</span>，把整件事压了下来，连一条新闻都没有留下。</div>
+        <div class="text-line">四个工人的命，就这么悄无声息地被掩埋了。</div>
+        <div class="text-line">现在，在民警破门而入之前，你还有最后的机会。</div>
+        <div class="text-line">把你刚刚搜集到的全部证据发送出去。</div>
+        <div class="text-line">你要这样做吗？<span class="cursor"></span></div>
+    </div>
+
+    <!-- 选择按钮 -->
+    <div class="choice-box" id="choiceBox">
+        <button class="btn" onclick="chooseYes()">发送证据</button>
+        <button class="btn" onclick="chooseNo()">放弃发送</button>
+    </div>
+
+    <!-- 输入联系方式 -->
+    <div class="input-section" id="inputSection">
+        <p>请输入接收证据的联系人邮箱或电话：</p>
+        <input type="text" id="contactInput" placeholder="邮箱 / 电话号码">
+        <br>
+        <button class="btn" onclick="submitContact()">确认发送</button>
+    </div>
+
+    <!-- 好结局 -->
+    <div class="ending good-ending" id="goodEnding">
+        <h2>—— 真相大白 ——</h2>
+        <p>你被认定为非法侵入计算机信息系统罪，暂时羁押。</p>
+        <p>但没过多久，网上的消息铺天盖地地传来。</p>
+        <p>《宁州前线》将你搜集到的全部证据公之于众，舆论瞬间炸开了锅。</p>
+        <p>网民声讨公安局与安宁建工的勾结，要求彻查事故真相。</p>
+        <p>压力之下，案件重启调查。你因情节较轻且提供关键证据，很快被释放。</p>
+        <p>在那场安全事故中丧生的四个人，终于不再是无名的冤魂。</p>
+        <p>顾振义及相关涉案人员遭到了应有的处罚，安宁建工被勒令全面停工整改。</p>
+        <p>人死不能复生，你还是没能把弟弟带回家。</p>
+        <p>但至少，你为他的结局，做了一点什么。</p>
+    </div>
+
+    <!-- 坏结局 -->
+    <div class="ending" id="badEnding">
+        <h2>—— 石沉大海 ——</h2>
+        <p>你被认定为非法侵入计算机信息系统罪。</p>
+        <p>侵入公安内网系统，造成不良社会影响，判处拘役六个月。</p>
+        <p>六个月后，你走出拘役所的大门。</p>
+        <p>回到家里，电脑里的所有证据都被清空了，什么都没剩下。</p>
+        <p>你清醒地知道弟弟的死因，知道那起被掩盖的事故，知道顾振义和安宁建工做了什么。</p>
+        <p>可你什么都做不了。</p>
+        <p>真相就像一块石头，沉在你心里，永远也浮不上来了。</p>
+    </div>
+</div>
+
+<script>
+    const lines = document.querySelectorAll('.text-line');
+    const choiceBox = document.getElementById('choiceBox');
+    const inputSection = document.getElementById('inputSection');
+    const goodEnding = document.getElementById('goodEnding');
+    const badEnding = document.getElementById('badEnding');
+    const intro = document.getElementById('intro');
+
+    let currentLine = 0;
+
+    // 逐行显示文本
+    function showNextLine() {
+        if (currentLine < lines.length) {
+            lines[currentLine].classList.add('show');
+            currentLine++;
+            setTimeout(showNextLine, 900);
+        } else {
+            // 所有文字显示完后出现选择按钮
+            setTimeout(() => {
+                choiceBox.classList.add('show');
+            }, 600);
+        }
+    }
+
+    // 页面加载后开始播放
+    window.onload = function() {
+        setTimeout(showNextLine, 800);
+    };
+
+    // 选择"发送证据"
+    function chooseYes() {
+        choiceBox.classList.remove('show');
+        setTimeout(() => {
+            inputSection.classList.add('show');
+            document.getElementById('contactInput').focus();
+        }, 400);
+    }
+
+    // 选择"放弃发送" —— 坏结局
+    function chooseNo() {
+        choiceBox.classList.remove('show');
+        setTimeout(() => {
+            intro.style.display = 'none';
+            badEnding.classList.add('show');
+        }, 500);
+    }
+
+    // 提交联系方式
+    function submitContact() {
+        const input = document.getElementById('contactInput').value.trim();
+        inputSection.classList.remove('show');
+        
+        setTimeout(() => {
+            intro.style.display = 'none';
+            if (input === 'news@nzfrontline.com') {
+                goodEnding.classList.add('show');
+            } else {
+                badEnding.classList.add('show');
+            }
+        }, 500);
+    }
+
+    // 回车提交
+    document.getElementById('contactInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            submitContact();
+        }
+    });
+</script>
+</body>
+</html>
