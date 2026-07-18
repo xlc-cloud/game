@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>保安全 - 加密邮箱</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #0a0e17;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e2e8f0;
+            overflow: hidden;
+        }
+
+        /* 背景网格效果 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 170, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 170, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 光晕效果 */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 255, 170, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 420px;
+            padding: 0 24px;
+        }
+
+        .login-box {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 170, 0.15);
+            border-radius: 16px;
+            padding: 48px 40px;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(0, 255, 170, 0.05) inset;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 16px;
+            background: linear-gradient(135deg, #00ffaa 0%, #00b894 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(0, 255, 170, 0.3);
+        }
+
+        .logo-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: #0a0e17;
+        }
+
+        .logo-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #f1f5f9;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+
+        .logo-subtitle {
+            font-size: 13px;
+            color: #64748b;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .email-input-group {
+            display: flex;
+            align-items: center;
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            transition: all 0.25s ease;
+            overflow: hidden;
+        }
+
+        .email-input-group:focus-within {
+            border-color: #00ffaa;
+            box-shadow: 0 0 0 3px rgba(0, 255, 170, 0.1);
+        }
+
+        .email-prefix {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #e2e8f0;
+            font-size: 15px;
+            padding: 14px 16px;
+            font-family: inherit;
+        }
+
+        .email-suffix {
+            padding: 14px 16px 14px 0;
+            color: #64748b;
+            font-size: 15px;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        .password-input {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 14px 16px;
+            color: #e2e8f0;
+            font-size: 15px;
+            outline: none;
+            font-family: inherit;
+            transition: all 0.25s ease;
+        }
+
+        .password-input:focus {
+            border-color: #00ffaa;
+            box-shadow: 0 0 0 3px rgba(0, 255, 170, 0.1);
+        }
+
+        .error-message {
+            color: #f87171;
+            font-size: 13px;
+            margin-top: 8px;
+            min-height: 18px;
+            opacity: 0;
+            transform: translateY(-4px);
+            transition: all 0.2s ease;
+        }
+
+        .error-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #00ffaa 0%, #00b894 100%);
+            color: #0a0e17;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin-top: 8px;
+            font-family: inherit;
+            letter-spacing: 1px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(0, 255, 170, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 20px;
+            height: 0;
+            overflow: hidden;
+            transition: height 0.3s ease;
+        }
+
+        .forgot-password.show {
+            height: 30px;
+        }
+
+        .forgot-btn {
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: underline;
+            font-family: inherit;
+            transition: color 0.2s ease;
+        }
+
+        .forgot-btn:hover {
+            color: #00ffaa;
+        }
+
+        /* 提示弹窗 */
+        .hint-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .hint-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .hint-box {
+            background: #0f172a;
+            border: 1px solid rgba(0, 255, 170, 0.2);
+            border-radius: 14px;
+            padding: 32px;
+            max-width: 360px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .hint-modal.show .hint-box {
+            transform: scale(1);
+        }
+
+        .hint-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 20px;
+            background: rgba(0, 255, 170, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hint-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: #00ffaa;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .hint-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 12px;
+        }
+
+        .hint-text {
+            font-size: 18px;
+            color: #00ffaa;
+            letter-spacing: 4px;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        .hint-close {
+            padding: 10px 32px;
+            background: transparent;
+            border: 1px solid #334155;
+            color: #94a3b8;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .hint-close:hover {
+            border-color: #00ffaa;
+            color: #00ffaa;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 12px;
+            color: #475569;
+        }
+
+        /* 震动动画 */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        .shake {
+            animation: shake 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                    </svg>
+                </div>
+                <div class="logo-title">保安全</div>
+                <div class="logo-subtitle">加密邮箱系统 · Encrypted Mail</div>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">邮箱账号</label>
+                    <div class="input-wrapper">
+                        <div class="email-input-group">
+                            <input type="text" id="emailPrefix" class="email-prefix" placeholder="请输入账号" autocomplete="off">
+                            <span class="email-suffix">@banq.com</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">登录密码</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" class="password-input" placeholder="请输入密码" autocomplete="off">
+                    </div>
+                    <div class="error-message" id="errorMsg">账号或密码错误</div>
+                </div>
+
+                <button type="submit" class="login-btn">登 录</button>
+            </form>
+
+            <div class="forgot-password" id="forgotSection">
+                <button type="button" class="forgot-btn" id="forgotBtn">忘记密码？</button>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            安全加密通道 · 数据全程加密传输
+        </div>
+    </div>
+
+    <!-- 密码提示弹窗 -->
+    <div class="hint-modal" id="hintModal">
+        <div class="hint-box">
+            <div class="hint-icon">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="16" x2="12" y2="12"/>
+                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                </svg>
+            </div>
+            <div class="hint-title">密码提示</div>
+            <div class="hint-text">我的女儿</div>
+            <button class="hint-close" id="hintClose">我知道了</button>
+        </div>
+    </div>
+
+    <script>
+        const VALID_ACCOUNT = '41398468';
+        const VALID_PASSWORD = 'liuningzhi';
+        let errorCount = 0;
+
+        const loginForm = document.getElementById('loginForm');
+        const emailPrefix = document.getElementById('emailPrefix');
+        const passwordInput = document.getElementById('password');
+        const errorMsg = document.getElementById('errorMsg');
+        const forgotSection = document.getElementById('forgotSection');
+        const forgotBtn = document.getElementById('forgotBtn');
+        const hintModal = document.getElementById('hintModal');
+        const hintClose = document.getElementById('hintClose');
+        const loginBox = document.querySelector('.login-box');
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const account = emailPrefix.value.trim();
+            const pwd = passwordInput.value;
+
+            if (account === VALID_ACCOUNT && pwd === VALID_PASSWORD) {
+                // 登录成功
+                window.location.href = 'game/13youxiang.html';
+            } else {
+                // 登录失败
+                errorMsg.classList.add('show');
+                loginBox.classList.add('shake');
+                
+                setTimeout(() => {
+                    loginBox.classList.remove('shake');
+                }, 400);
+
+                // 检查是否是指定账号
+                if (account === VALID_ACCOUNT) {
+                    errorCount++;
+                    if (errorCount >= 3) {
+                        forgotSection.classList.add('show');
+                    }
+                }
+            }
+        });
+
+        // 输入时清除错误提示
+        passwordInput.addEventListener('input', function() {
+            errorMsg.classList.remove('show');
+        });
+
+        emailPrefix.addEventListener('input', function() {
+            errorMsg.classList.remove('show');
+        });
+
+        // 忘记密码按钮
+        forgotBtn.addEventListener('click', function() {
+            hintModal.classList.add('show');
+        });
+
+        // 关闭提示弹窗
+        hintClose.addEventListener('click', function() {
+            hintModal.classList.remove('show');
+        });
+
+        // 点击遮罩关闭
+        hintModal.addEventListener('click', function(e) {
+            if (e.target === hintModal) {
+                hintModal.classList.remove('show');
+            }
+        });
+
+        // 自动聚焦第一个输入框
+        emailPrefix.focus();
+    </script>
+</body>
+</html>
