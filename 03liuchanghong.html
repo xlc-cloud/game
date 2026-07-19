@@ -156,6 +156,10 @@
             margin-bottom: 15px;
             font-size: 18px;
         }
+        /* 新增：保留原文换行和空格 */
+        #memoDetailContent, #mailDetailContent {
+            white-space: pre-wrap;
+        }
         .back-btn {
             margin-bottom: 10px;
         }
@@ -464,8 +468,8 @@
         a.addEventListener('click', function() {
             var id = a.getAttribute('data-memo');
             var data = memoData[id];
-            document.getElementById('memoDetailTitle').innerText = data.title;
-            document.getElementById('memoDetailContent').innerText = data.content;
+            document.getElementById('memoDetailTitle').innerHTML = data.title;
+            document.getElementById('memoDetailContent').innerHTML = data.content;
             
             document.querySelector('.memo-list').style.display = 'none';
             memoDetail.classList.add('active');
@@ -483,8 +487,8 @@
         a.addEventListener('click', function() {
             var id = a.getAttribute('data-mail');
             var data = mailData[id];
-            document.getElementById('mailDetailTitle').innerText = data.title;
-            document.getElementById('mailDetailContent').innerText = data.content;
+            document.getElementById('mailDetailTitle').innerHTML = data.title;
+            document.getElementById('mailDetailContent').innerHTML = data.content;
             
             document.querySelector('.mail-list').style.display = 'none';
             mailDetail.classList.add('active');
