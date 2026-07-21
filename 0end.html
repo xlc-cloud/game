@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>END</title>
+<title>END - 空白档案</title>
 <style>
     * {
         margin: 0;
@@ -12,21 +12,65 @@
     }
 
     body {
-        background: #0a0a0a;
-        color: #c8c8c8;
+        background-color: #0a0e14;
+        color: #b0c4d8;
         font-family: "Microsoft YaHei", "SimHei", monospace;
         min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 40px 20px;
-        line-height: 1.8;
-        font-size: 16px;
+        overflow: hidden;
+        position: relative;
+        line-height: 2;
+        font-size: 15px;
     }
 
+    /* 网格背景效果 - 与首页一致 */
+    .grid-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            linear-gradient(rgba(0, 120, 200, 0.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 120, 200, 0.08) 1px, transparent 1px);
+        background-size: 40px 40px;
+        z-index: 0;
+        animation: gridMove 20s linear infinite;
+    }
+
+    @keyframes gridMove {
+        0% { background-position: 0 0; }
+        100% { background-position: 40px 40px; }
+    }
+
+    /* 扫描线效果 - 与首页一致 */
+    .scanline {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            to bottom,
+            transparent 50%,
+            rgba(0, 0, 0, 0.3) 50%
+        );
+        background-size: 100% 4px;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* 主容器 */
     .container {
+        position: relative;
+        z-index: 2;
         max-width: 720px;
         width: 100%;
+        margin: 0 auto;
+        padding: 60px 40px 80px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .text-line {
@@ -34,6 +78,7 @@
         margin-bottom: 14px;
         transform: translateY(8px);
         transition: opacity 0.6s ease, transform 0.6s ease;
+        text-indent: 2em;
     }
 
     .text-line.show {
@@ -42,14 +87,15 @@
     }
 
     .highlight {
-        color: #e63946;
+        color: #ff6b6b;
+        font-weight: 500;
     }
 
     .choice-box {
         opacity: 0;
         margin-top: 40px;
         display: none;
-        gap: 20px;
+        gap: 30px;
         justify-content: center;
         flex-wrap: wrap;
     }
@@ -57,25 +103,47 @@
     .choice-box.show {
         opacity: 1;
         display: flex;
+        animation: fadeIn 0.6s ease forwards;
     }
 
+    /* 按钮样式 - 与首页开始按钮统一 */
     .btn {
         background: transparent;
-        border: 1px solid #555;
-        color: #c8c8c8;
-        padding: 12px 36px;
+        border: 1px solid #2a5a8a;
+        color: #6ab0ff;
+        padding: 14px 42px;
         font-size: 15px;
+        letter-spacing: 3px;
         cursor: pointer;
         transition: all 0.3s ease;
         font-family: inherit;
+        position: relative;
+        overflow: hidden;
     }
 
     .btn:hover {
-        border-color: #e63946;
-        color: #e63946;
-        background: rgba(230, 57, 70, 0.08);
+        background: rgba(74, 158, 255, 0.15);
+        border-color: #4a9eff;
+        color: #8cc4ff;
+        box-shadow: 0 0 20px rgba(74, 158, 255, 0.3);
     }
 
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(74, 158, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .btn:hover::before {
+        left: 100%;
+    }
+
+    /* 输入区域 */
     .input-section {
         opacity: 0;
         display: none;
@@ -90,32 +158,36 @@
     }
 
     .input-section p {
-        margin-bottom: 16px;
-        color: #999;
+        margin-bottom: 18px;
+        color: #7a94ae;
         font-size: 14px;
+        letter-spacing: 1px;
     }
 
     .input-section input {
-        width: 320px;
+        width: 360px;
         max-width: 100%;
-        background: #111;
-        border: 1px solid #444;
-        color: #ddd;
-        padding: 10px 14px;
-        font-size: 15px;
+        background: rgba(10, 20, 30, 0.7);
+        border: 1px solid #1a3a5a;
+        color: #b0c4d8;
+        padding: 12px 16px;
+        font-size: 14px;
         font-family: inherit;
         outline: none;
         transition: border-color 0.3s;
+        border-radius: 2px;
     }
 
     .input-section input:focus {
-        border-color: #e63946;
+        border-color: #4a9eff;
+        box-shadow: 0 0 10px rgba(74, 158, 255, 0.2);
     }
 
     .input-section .btn {
-        margin-top: 18px;
+        margin-top: 22px;
     }
 
+    /* 结局文本 */
     .ending {
         opacity: 0;
         display: none;
@@ -127,21 +199,102 @@
         animation: fadeIn 0.8s ease forwards;
     }
 
+    .ending-content {
+        transition: transform 1s ease;
+    }
+
     .ending h2 {
-        color: #e63946;
-        margin-bottom: 24px;
-        font-size: 20px;
+        text-align: center;
+        margin-bottom: 32px;
+        font-size: 22px;
         font-weight: normal;
-        letter-spacing: 2px;
+        letter-spacing: 6px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid rgba(42, 74, 106, 0.5);
     }
 
-    .ending p {
-        margin-bottom: 14px;
-        color: #b8b8b8;
+    /* 结局逐行样式 */
+    .ending-line {
+        opacity: 0;
+        margin-bottom: 12px;
+        transform: translateY(8px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+        text-indent: 2em;
+        color: #b0c4d8;
     }
 
+    .ending-line.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 好结局 - 主蓝色调 */
     .good-ending h2 {
-        color: #a8dadc;
+        color: #4a9eff;
+        text-shadow: 0 0 10px rgba(74, 158, 255, 0.5);
+    }
+
+    /* 好结局文字上移动画 */
+    .good-ending .ending-content.move-up {
+        transform: translateY(-40px);
+    }
+
+    /* 感谢游玩文字 */
+    .thanks {
+        text-align: center;
+        font-size: 34px;
+        color: #4a9eff;
+        letter-spacing: 10px;
+        margin-top: 40px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+        text-shadow: 0 0 15px rgba(74, 158, 255, 0.6);
+        font-weight: normal;
+    }
+
+    .thanks.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 结局图片区 */
+    .end-pic-box {
+        text-align: center;
+        margin-top: 30px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+    }
+
+    .end-pic-box.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .end-pic-box img {
+        max-width: 100%;
+        border: 1px solid #1a3a5a;
+        border-radius: 4px;
+        box-shadow: 0 0 20px rgba(74, 158, 255, 0.2);
+    }
+
+    /* 坏结局 - 警告红色调 */
+    .bad-ending h2 {
+        color: #ff6b6b;
+        text-shadow: 0 0 10px rgba(255, 107, 107, 0.4);
+    }
+
+    /* 重新选择按钮容器 */
+    .reset-btn-box {
+        text-align: center;
+        margin-top: 35px;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+    }
+
+    .reset-btn-box.show {
+        opacity: 1;
     }
 
     @keyframes fadeIn {
@@ -151,11 +304,11 @@
 
     .cursor {
         display: inline-block;
-        width: 8px;
-        height: 16px;
-        background: #c8c8c8;
+        width: 10px;
+        height: 18px;
+        background-color: #4a9eff;
         margin-left: 4px;
-        animation: blink 1s infinite;
+        animation: blink 0.8s infinite;
         vertical-align: middle;
     }
 
@@ -163,63 +316,106 @@
         0%, 50% { opacity: 1; }
         51%, 100% { opacity: 0; }
     }
+
+    /* 底部状态栏 - 与首页一致 */
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px 20px;
+        font-size: 12px;
+        color: #3a5060;
+        display: flex;
+        justify-content: space-between;
+        z-index: 3;
+    }
+
+    .blink-dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        background: #3a8a3a;
+        border-radius: 50%;
+        margin-right: 6px;
+        animation: blink 2s infinite;
+    }
 </style>
 </head>
 <body>
-<div class="container">
-    <!-- 开场剧情 -->
-    <div id="intro">
-        <div class="text-line">电话响了。</div>
-        <div class="text-line">是警察打来的。</div>
-        <div class="text-line">他们要求你立刻前往辖区派出所接受调查，否则民警将在十分钟内赶到你所在的位置。</div>
-        <div class="text-line">事到如今，你终于知道了弟弟的下落。</div>
-        <div class="text-line">他顺着那条招聘信息去了<span class="highlight">安宁建工</span>，却在五月三十号的工地安全事故中丧生。</div>
-        <div class="text-line">安宁建工买通了新上任的副局长<span class="highlight">顾振义</span>，把整件事压了下来，连一条新闻都没有留下。</div>
-        <div class="text-line">工人的命，就这么悄无声息地被掩埋了。</div>
-        <div class="text-line">现在，在民警破门而入之前，你还有最后的机会。</div>
-        <div class="text-line">把你刚刚搜集到的全部证据发送出去。</div>
+    <!-- 背景层 - 与首页同源 -->
+    <div class="grid-bg"></div>
+    <div class="scanline"></div>
+
+    <div class="container">
+        <!-- 开场剧情 -->
+        <div id="intro">
+            <div class="text-line">电话响了。</div>
+            <div class="text-line">是警察打来的。</div>
+            <div class="text-line">他们要求你立刻前往辖区派出所接受调查，否则民警将在十分钟内赶到你所在的位置。</div>
+            <div class="text-line">事到如今，你终于知道了弟弟的下落。</div>
+            <div class="text-line">他顺着那条招聘信息去了<span class="highlight">安宁建工</span>，却在五月三十号的工地安全事故中丧生。</div>
+            <div class="text-line">安宁建工买通了新上任的副局长<span class="highlight">顾振义</span>，把整件事压了下来，连一条新闻都没有留下。</div>
+            <div class="text-line">工人的命，就这么悄无声息地被掩埋了。</div>
+            <div class="text-line">现在，在民警破门而入之前，你还有最后的机会。</div>
+            <div class="text-line">把你刚刚搜集到的全部证据发送出去。</div>
+        </div>
+
+        <!-- 选择按钮 -->
+        <div class="choice-box" id="choiceBox">
+            <button class="btn" onclick="chooseYes()">发送证据</button>
+            <button class="btn" onclick="chooseNo()">放弃发送</button>
+        </div>
+
+        <!-- 输入联系方式 -->
+        <div class="input-section" id="inputSection">
+            <p>请输入接收证据的联系人邮箱或电话：</p>
+            <input type="text" id="contactInput" placeholder="邮箱 / 电话号码">
+            <br>
+            <button class="btn" onclick="submitContact()">确认发送</button>
+        </div>
+
+        <!-- 好结局 -->
+        <div class="ending good-ending" id="goodEnding">
+            <div class="ending-content" id="goodEndContent">
+                <h2>—— 真相大白 ——</h2>
+                <p class="ending-line">你被认定为非法侵入计算机信息系统罪，暂时羁押。</p>
+                <p class="ending-line">但没过多久，网上的消息铺天盖地地传来。</p>
+                <p class="ending-line">《宁州前线》将你搜集到的全部证据公之于众，舆论瞬间炸开了锅。</p>
+                <p class="ending-line">网民声讨公安局与安宁建工的勾结，要求彻查事故真相。</p>
+                <p class="ending-line">压力之下，案件重启调查。你因情节较轻且提供关键证据，很快被释放。</p>
+                <p class="ending-line">在那场安全事故中丧生的四个人，终于不再是无名的冤魂。</p>
+                <p class="ending-line">顾振义及相关涉案人员遭到了应有的处罚，安宁建工被勒令全面停工整改。</p>
+                <p class="ending-line">人死不能复生，你还是没能把弟弟带回家。</p>
+                <p class="ending-line">但至少，你为他的结局，做了一点什么。</p>
+            </div>
+            <div class="thanks" id="thanksText">感谢游玩</div>
+            <div class="end-pic-box" id="endPicBox">
+                <img src="/game/pic/end.jpg" alt="结局纪念画面">
+            </div>
+        </div>
+
+        <!-- 坏结局 -->
+        <div class="ending bad-ending" id="badEnding">
+            <h2>—— 石沉大海 ——</h2>
+            <p class="ending-line">你被认定为非法侵入计算机信息系统罪。</p>
+            <p class="ending-line">侵入公安内网系统，造成不良社会影响，判处拘役六个月。</p>
+            <p class="ending-line">六个月后，你走出拘役所的大门。</p>
+            <p class="ending-line">回到家里，电脑里的所有证据都被清空了，什么都没剩下。</p>
+            <p class="ending-line">你清醒地知道弟弟的死因，知道那起被掩盖的事故，知道顾振义和安宁建工做了什么。</p>
+            <p class="ending-line">可你什么都做不了。</p>
+            <p class="ending-line">真相就像一块石头，沉在你心里，永远也浮不上来了。</p>
+            <div class="reset-btn-box">
+                <button class="btn" onclick="resetToChoice()">重新选择</button>
+            </div>
+        </div>
     </div>
 
-    <!-- 选择按钮 -->
-    <div class="choice-box" id="choiceBox">
-        <button class="btn" onclick="chooseYes()">发送证据</button>
-        <button class="btn" onclick="chooseNo()">放弃发送</button>
+    <!-- 底部状态栏 - 与首页一致 -->
+    <div class="footer">
+        <span><span class="blink-dot"></span>系统状态：正常</span>
+        <span>访问时间：2024-06-20 23:59</span>
     </div>
-
-    <!-- 输入联系方式 -->
-    <div class="input-section" id="inputSection">
-        <p>请输入接收证据的联系人邮箱或电话：</p>
-        <input type="text" id="contactInput" placeholder="邮箱 / 电话号码">
-        <br>
-        <button class="btn" onclick="submitContact()">确认发送</button>
-    </div>
-
-    <!-- 好结局 -->
-    <div class="ending good-ending" id="goodEnding">
-        <h2>—— 真相大白 ——</h2>
-        <p>你被认定为非法侵入计算机信息系统罪，暂时羁押。</p>
-        <p>但没过多久，网上的消息铺天盖地地传来。</p>
-        <p>《宁州前线》将你搜集到的全部证据公之于众，舆论瞬间炸开了锅。</p>
-        <p>网民声讨公安局与安宁建工的勾结，要求彻查事故真相。</p>
-        <p>压力之下，案件重启调查。你因情节较轻且提供关键证据，很快被释放。</p>
-        <p>在那场安全事故中丧生的四个人，终于不再是无名的冤魂。</p>
-        <p>顾振义及相关涉案人员遭到了应有的处罚，安宁建工被勒令全面停工整改。</p>
-        <p>人死不能复生，你还是没能把弟弟带回家。</p>
-        <p>但至少，你为他的结局，做了一点什么。</p>
-    </div>
-
-    <!-- 坏结局 -->
-    <div class="ending" id="badEnding">
-        <h2>—— 石沉大海 ——</h2>
-        <p>你被认定为非法侵入计算机信息系统罪。</p>
-        <p>侵入公安内网系统，造成不良社会影响，判处拘役六个月。</p>
-        <p>六个月后，你走出拘役所的大门。</p>
-        <p>回到家里，电脑里的所有证据都被清空了，什么都没剩下。</p>
-        <p>你清醒地知道弟弟的死因，知道那起被掩盖的事故，知道顾振义和安宁建工做了什么。</p>
-        <p>可你什么都做不了。</p>
-        <p>真相就像一块石头，沉在你心里，永远也浮不上来了。</p>
-    </div>
-</div>
 
 <script>
     const lines = document.querySelectorAll('.text-line');
@@ -228,21 +424,80 @@
     const goodEnding = document.getElementById('goodEnding');
     const badEnding = document.getElementById('badEnding');
     const intro = document.getElementById('intro');
+    const contactInput = document.getElementById('contactInput');
+    const goodEndContent = document.getElementById('goodEndContent');
+    const thanksText = document.getElementById('thanksText');
+    const endPicBox = document.getElementById('endPicBox');
+    const resetBtnBox = document.querySelector('.reset-btn-box');
+    
+    // 结局逐行元素
+    const goodEndLines = document.querySelectorAll('#goodEnding .ending-line');
+    const badEndLines = document.querySelectorAll('#badEnding .ending-line');
 
     let currentLine = 0;
+    let goodLineIndex = 0;
+    let badLineIndex = 0;
+    let goodEndTimer = null;
 
-    // 逐行显示文本
+    // 开场逐行显示
     function showNextLine() {
         if (currentLine < lines.length) {
             lines[currentLine].classList.add('show');
             currentLine++;
             setTimeout(showNextLine, 900);
         } else {
-            // 所有文字显示完后出现选择按钮
             setTimeout(() => {
                 choiceBox.classList.add('show');
             }, 600);
         }
+    }
+
+    // 好结局逐行显示
+    function showGoodNextLine() {
+        if (goodLineIndex < goodEndLines.length) {
+            goodEndLines[goodLineIndex].classList.add('show');
+            goodLineIndex++;
+            setTimeout(showGoodNextLine, 800);
+        } else {
+            // 逐行结束后，文字上移并显示感谢与图片
+            goodEndTimer = setTimeout(() => {
+                goodEndContent.classList.add('move-up');
+                thanksText.classList.add('show');
+                setTimeout(() => {
+                    endPicBox.classList.add('show');
+                }, 800);
+            }, 1500);
+        }
+    }
+
+    // 坏结局逐行显示
+    function showBadNextLine() {
+        if (badLineIndex < badEndLines.length) {
+            badEndLines[badLineIndex].classList.add('show');
+            badLineIndex++;
+            setTimeout(showBadNextLine, 800);
+        } else {
+            // 逐行结束后显示重新选择按钮
+            setTimeout(() => {
+                resetBtnBox.classList.add('show');
+            }, 800);
+        }
+    }
+
+    // 重置好结局状态
+    function resetGoodEndLines() {
+        goodLineIndex = 0;
+        goodEndLines.forEach(line => line.classList.remove('show'));
+        goodEndContent.classList.remove('move-up');
+        thanksText.classList.remove('show');
+        endPicBox.classList.remove('show');
+    }
+
+    // 重置坏结局状态
+    function resetBadEndLines() {
+        badLineIndex = 0;
+        badEndLines.forEach(line => line.classList.remove('show'));
+        resetBtnBox.classList.remove('show');
     }
 
     // 页面加载后开始播放
@@ -255,7 +510,7 @@
         choiceBox.classList.remove('show');
         setTimeout(() => {
             inputSection.classList.add('show');
-            document.getElementById('contactInput').focus();
+            contactInput.focus();
         }, 400);
     }
 
@@ -265,26 +520,52 @@
         setTimeout(() => {
             intro.style.display = 'none';
             badEnding.classList.add('show');
+            resetBadEndLines();
+            setTimeout(showBadNextLine, 600);
         }, 500);
     }
 
     // 提交联系方式
     function submitContact() {
-        const input = document.getElementById('contactInput').value.trim();
+        const input = contactInput.value.trim();
         inputSection.classList.remove('show');
         
         setTimeout(() => {
             intro.style.display = 'none';
             if (input === 'news@nzfrontline.com') {
                 goodEnding.classList.add('show');
+                resetGoodEndLines();
+                clearTimeout(goodEndTimer);
+                setTimeout(showGoodNextLine, 600);
             } else {
                 badEnding.classList.add('show');
+                resetBadEndLines();
+                setTimeout(showBadNextLine, 600);
             }
         }, 500);
     }
 
+    // 重置回到选择界面
+    function resetToChoice() {
+        clearTimeout(goodEndTimer);
+        
+        badEnding.classList.remove('show');
+        goodEnding.classList.remove('show');
+        inputSection.classList.remove('show');
+        
+        resetGoodEndLines();
+        resetBadEndLines();
+        
+        contactInput.value = '';
+        intro.style.display = 'block';
+        
+        setTimeout(() => {
+            choiceBox.classList.add('show');
+        }, 300);
+    }
+
     // 回车提交
-    document.getElementById('contactInput').addEventListener('keypress', function(e) {
+    contactInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             submitContact();
         }
