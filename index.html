@@ -32,7 +32,7 @@
                 linear-gradient(90deg, rgba(0, 120, 200, 0.08) 1px, transparent 1px);
             background-size: 40px 40px;
             z-index: 0;
-            animation: gridMove 20 linear infinite;
+            animation: gridMove 20s linear infinite;
         }
 
         @keyframes gridMove {
@@ -79,7 +79,7 @@
             margin-bottom: 30px;
             flex-shrink: 0;
             opacity: 0;
-            animation: fadeIn 1 ease forwards;
+            animation: fadeIn 1s ease forwards;
         }
 
         .header h1 {
@@ -149,7 +149,7 @@
             width: 10px;
             height: 18px;
             background-color: #4a9eff;
-            animation: blink 0.8 infinite;
+            animation: blink 0.8s infinite;
             vertical-align: middle;
             margin-left: 2px;
         }
@@ -157,6 +157,36 @@
         @keyframes blink {
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
+        }
+
+        /* 任务清单样式 */
+        .task-box {
+            background: rgba(20, 40, 60, 0.5);
+            border: 1px solid #1a4a7a;
+            border-left: 4px solid #4a9eff;
+            padding: 18px 25px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: #a0c4e8;
+            display: none;
+            line-height: 2;
+            flex-shrink: 0;
+        }
+
+        .task-box strong {
+            color: #6ab0ff;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 15px;
+            letter-spacing: 2px;
+        }
+
+        .task-box ol {
+            padding-left: 22px;
+        }
+
+        .task-box li {
+            margin-bottom: 4px;
         }
 
         /* 提示区域 */
@@ -195,7 +225,7 @@
             font-size: 16px;
             letter-spacing: 4px;
             cursor: pointer;
-            transition: all 0.3 ease;
+            transition: all 0.3s ease;
             font-family: inherit;
             position: relative;
             overflow: hidden;
@@ -216,7 +246,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(74, 158, 255, 0.2), transparent);
-            transition: left 0.5 ease;
+            transition: left 0.5s ease;
         }
 
         .start-btn:hover::before {
@@ -249,7 +279,7 @@
             background: #3a8a3a;
             border-radius: 50%;
             margin-right: 6px;
-            animation: blink 2 infinite;
+            animation: blink 2s infinite;
         }
     </style>
 </head>
@@ -268,6 +298,16 @@
             <span class="story-text" id="storyText"></span><span class="cursor" id="cursor"></span>
         </div>
 
+        <!-- 新增：任务清单区域 -->
+        <div class="task-box" id="taskBox">
+            <strong>调查任务清单</strong>
+            <ol>
+                <li>想办法找到账号进入公安系统</li>
+                <li>弄清弟弟使用的招聘平台</li>
+                <li>寻找弟弟的工作地点</li>
+            </ol>
+        </div>
+
         <div class="warning-box" id="warningBox">
             <strong>游戏提示</strong>
             请勿通过修改网址、直接查看源代码等方式获取线索，这将严重影响游戏体验。<br>
@@ -279,10 +319,7 @@
         </div>
     </div>
 
-    <div class="footer">
-        <span><span class="blink-dot"></span>系统状态：正常</span>
-        <span>访问时间：2024-06-20 23:47</span>
-    </div>
+
 
     <script>
         const storyContent = `
@@ -309,6 +346,7 @@
         const storyBox = document.getElementById('storyBox');
         const storyText = document.getElementById('storyText');
         const cursor = document.getElementById('cursor');
+        const taskBox = document.getElementById('taskBox');
         const warningBox = document.getElementById('warningBox');
         const btnContainer = document.getElementById('btnContainer');
         
@@ -323,16 +361,20 @@
                 storyBox.scrollTop = storyBox.scrollHeight;
                 setTimeout(typeWriter, typeSpeed);
             } else {
-                // 打字结束，隐藏光标，显示提示和按钮
+                // 打字结束，隐藏光标，依次显示任务清单、提示和按钮
                 cursor.style.display = 'none';
+                setTimeout(() => {
+                    taskBox.style.display = 'block';
+                    taskBox.style.animation = 'fadeIn 0.8s ease forwards';
+                }, 500);
                 setTimeout(() => {
                     warningBox.style.display = 'block';
                     warningBox.style.animation = 'fadeIn 0.8s ease forwards';
-                }, 500);
+                }, 1200);
                 setTimeout(() => {
                     btnContainer.style.display = 'block';
                     btnContainer.style.animation = 'fadeIn 0.8s ease forwards';
-                }, 1200);
+                }, 1900);
             }
         }
 
@@ -358,13 +400,17 @@
                 storyBox.scrollTop = storyBox.scrollHeight;
                 cursor.style.display = 'none';
                 setTimeout(() => {
+                    taskBox.style.display = 'block';
+                    taskBox.style.animation = 'fadeIn 0.8s ease forwards';
+                }, 300);
+                setTimeout(() => {
                     warningBox.style.display = 'block';
                     warningBox.style.animation = 'fadeIn 0.8s ease forwards';
-                }, 300);
+                }, 800);
                 setTimeout(() => {
                     btnContainer.style.display = 'block';
                     btnContainer.style.animation = 'fadeIn 0.8s ease forwards';
-                }, 800);
+                }, 1400);
             }
         });
     </script>
